@@ -4621,6 +4621,11 @@
         .reply-multi-btn.danger:hover {
             background-color: rgba(255, 91, 91, 0.1);
         }
+        .reply-multi-btn.selected-all {
+            border-color: rgba(var(--accent-color-rgb), 0.6);
+            background-color: rgba(var(--accent-color-rgb), 0.12);
+            color: var(--accent-color);
+        }
         .reply-check {
             width: 18px;
             height: 18px;
@@ -17262,13 +17267,7 @@ function renderReplyLibrary() {
             if (multiBtn) multiBtn.style.display = 'flex';
             addButton.innerHTML = '<i class="fas fa-plus"></i> 新增回复';
             addButton.style.display = 'flex';
-            let filtered = customReplies;
-            if (replyActiveGroup !== 'all' && replyGroups.some(g => g.id === replyActiveGroup)) {
-                filtered = filtered.filter(item => replyGroupMap[item] === replyActiveGroup);
-            }
-            if (filterText) {
-                filtered = filtered.filter(item => item.toLowerCase().includes(filterText));
-            }
+            let filtered = getFilteredCustomReplies();
             const totalPages = Math.max(1, Math.ceil(filtered.length / REPLY_PAGE_SIZE));
             if (replyCurrentPage > totalPages) replyCurrentPage = totalPages;
             replyFilteredTotal = filtered.length;
@@ -17503,6 +17502,18 @@ function buildReplyGroupBar() {
 
     return wrap;
 }
+function getFilteredCustomReplies() {
+    const searchInput = document.getElementById('reply-search-input');
+    const filterText = searchInput ? searchInput.value.toLowerCase().trim() : '';
+    let filtered = customReplies;
+    if (replyActiveGroup !== 'all' && replyGroups.some(g => g.id === replyActiveGroup)) {
+        filtered = filtered.filter(item => replyGroupMap[item] === replyActiveGroup);
+    }
+    if (filterText) {
+        filtered = filtered.filter(item => item.toLowerCase().includes(filterText));
+    }
+    return filtered;
+}
 function buildReplyMultiBar() {
     const wrap = document.createElement('div');
     wrap.className = 'reply-multi-bar';
@@ -17514,17 +17525,17 @@ function buildReplyMultiBar() {
         wrap.appendChild(enterBtn);
         return wrap;
     }
+    const allItems = getFilteredCustomReplies();
+    const allSelected = allItems.length > 0 && allItems.every(t => replySelectedItems.has(t));
     const selectAllBtn = document.createElement('button');
-    selectAllBtn.className = 'reply-multi-btn';
-    selectAllBtn.textContent = '全选本页';
+    selectAllBtn.className = 'reply-multi-btn' + (allSelected ? ' selected-all' : '');
+    selectAllBtn.textContent = allSelected ? `取消全选(${allItems.length})` : `全选(${allItems.length})`;
     selectAllBtn.addEventListener('click', () => {
-        const currentPageItems = Array.from(document.querySelectorAll('#custom-replies-list .custom-reply-item')).map(el => {
-            const textEl = el.querySelector('.custom-reply-text');
-            return textEl ? textEl.textContent.trim() : '';
-        });
-        currentPageItems.forEach(t => {
-            if (t) replySelectedItems.add(t);
-        });
+        if (allSelected) {
+            allItems.forEach(t => replySelectedItems.delete(t));
+        } else {
+            allItems.forEach(t => replySelectedItems.add(t));
+        }
         renderReplyLibrary();
     });
     wrap.appendChild(selectAllBtn);
