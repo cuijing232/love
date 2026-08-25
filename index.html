@@ -4499,6 +4499,34 @@
     padding-right: 10px;
     font-size: 14px;
         }
+        .reply-item-group-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 11px;
+            line-height: 1;
+            padding: 3px 8px;
+            border-radius: 20px;
+            border: 1px solid;
+            margin-right: 8px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .reply-item-group-tag.none {
+            color: var(--text-secondary);
+            border-color: var(--border-color);
+            background: transparent;
+        }
+        .group-move-opt.current {
+            border-color: rgba(var(--accent-color-rgb), 0.6);
+            background: rgba(var(--accent-color-rgb), 0.06);
+        }
+        .group-move-current-tag {
+            margin-left: auto;
+            font-size: 11px;
+            color: var(--accent-color, #4f7cff);
+            flex-shrink: 0;
+        }
 
 
         .custom-reply-item.disabled {
@@ -17394,7 +17422,15 @@ function renderReplyLibrary() {
         div.className = `custom-reply-item ${isDisabled ? 'disabled' : ''} ${isSelected ? 'selected' : ''}`;
         
         let checkHTML = '';
-        let displayHTML = `<span class="custom-reply-text">${item.replace('|', '<br><small style="opacity:0.7">')}</span>`;
+        let groupTagHTML = '';
+        if (isCustomTab && !replyMultiSelectMode) {
+            const gid = replyGroupMap[item];
+            const g = gid ? replyGroups.find(x => x.id === gid) : null;
+            groupTagHTML = g
+                ? `<span class="reply-item-group-tag" style="color:${g.color};border-color:${g.color}55;background:${g.color}1a"><i class="fas fa-tags"></i> ${g.name}</span>`
+                : `<span class="reply-item-group-tag none">未分组</span>`;
+        }
+        let displayHTML = `${groupTagHTML}<span class="custom-reply-text">${item.replace('|', '<br><small style="opacity:0.7">')}</span>`;
         if (isCustomTab && replyMultiSelectMode) {
             checkHTML = `<span class="reply-check">${isSelected ? '<i class="fas fa-check" style="font-size:10px"></i>' : ''}</span>`;
             displayHTML = `${checkHTML}<span class="custom-reply-text">${item.replace('|', '<br><small style="opacity:0.7">')}</span>`;
@@ -17409,6 +17445,7 @@ function renderReplyLibrary() {
              `;
         } else if (!(isCustomTab && replyMultiSelectMode)) {
             buttonsHTML = `
+                <button class="reply-action-mini group-btn" title="设置分组"><i class="fas fa-tags"></i></button>
                 <button class="reply-action-mini edit-btn"><i class="fas fa-pen"></i></button>
                 <button class="reply-action-mini delete-btn"><i class="fas fa-trash-alt"></i></button>
             `;
@@ -17429,6 +17466,7 @@ function renderReplyLibrary() {
         } else {
             div.querySelector('.delete-btn').onclick = () => deleteItem(index, item);
             div.querySelector('.edit-btn').onclick = () => editItem(index, item);
+            div.querySelector('.group-btn').onclick = () => openGroupSetModal(item);
         }
 
         list.appendChild(div);
@@ -17776,6 +17814,49 @@ function openGroupMoveModal(fromId) {
     };
     mkOpt('未分组', null, '');
     replyGroups.forEach(g => { if (g.id !== fromId) mkOpt(g.name, g.color, g.id); });
+    const cancel = document.getElementById('group-move-cancel');
+    if (cancel) cancel.onclick = () => hideModal(modal);
+    showModal(modal);
+}
+function openGroupSetModal(item) {
+    const modal = document.getElementById('group-move-modal');
+    if (!modal) return;
+    const list = document.getElementById('group-move-list');
+    if (!list) return;
+    const title = document.getElementById('group-move-title');
+    if (title) title.textContent = `「${item.length > 12 ? item.slice(0, 12) + '…' : item}」设置分组：`;
+    list.innerHTML = '';
+    const currentId = replyGroupMap[item] || '';
+    const mkOpt = (label, dotColor, targetId) => {
+        const opt = document.createElement('div');
+        opt.className = 'group-move-opt' + (currentId === targetId ? ' current' : '');
+        if (dotColor) {
+            const dot = document.createElement('span');
+            dot.className = 'g-dot';
+            dot.style.background = dotColor;
+            opt.appendChild(dot);
+        }
+        const span = document.createElement('span');
+        span.textContent = label;
+        opt.appendChild(span);
+        if (currentId === targetId) {
+            const cur = document.createElement('span');
+            cur.className = 'group-move-current-tag';
+            cur.textContent = '当前';
+            opt.appendChild(cur);
+        }
+        opt.addEventListener('click', () => {
+            if (targetId === '') delete replyGroupMap[item];
+            else replyGroupMap[item] = targetId;
+            hideModal(modal);
+            throttledSaveData();
+            renderReplyLibrary();
+            showNotification(targetId === '' ? '该字卡已设为未分组' : `该字卡已加入「${replyGroups.find(x => x.id === targetId)?.name || ''}」`, 'success');
+        });
+        list.appendChild(opt);
+    };
+    mkOpt('未分组', null, '');
+    replyGroups.forEach(g => mkOpt(g.name, g.color, g.id));
     const cancel = document.getElementById('group-move-cancel');
     if (cancel) cancel.onclick = () => hideModal(modal);
     showModal(modal);
