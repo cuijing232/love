@@ -14292,6 +14292,7 @@ function initMomentsModule() {
             };
             momentsData.unshift(moment);
             saveMomentsData();
+            schedulePartnerCommentOnMoment(moment.id);
             textEl.value = '';
             textEl.style.height = '42px';
             momentsPostImage = null;
@@ -14524,14 +14525,36 @@ function sendMomentComment(id) {
     renderMomentsFeed();
 
     if (moment.author === 'partner') {
+        const delay = 1000 + Math.random() * (24 * 3600 * 1000 - 1000);
         setTimeout(() => {
-            const replies = ['嗯嗯~', '哈哈，是吧', '我也这么觉得', '嘿嘿', '是呀', '对呢', '收到啦~', '么么'];
-            const reply = replies[Math.floor(Math.random() * replies.length)];
-            moment.comments.push({ author: 'partner', text: reply, timestamp: new Date().toISOString() });
+            moment.comments.push({ author: 'partner', text: randomReplyFromCardLibrary(), timestamp: new Date().toISOString() });
             saveMomentsData();
             renderMomentsFeed();
-        }, 1500 + Math.random() * 2000);
+        }, delay);
     }
+}
+
+function randomReplyFromCardLibrary() {
+    const pool = Array.isArray(customReplies) ? customReplies.filter(t => typeof t === 'string' && t.trim()) : [];
+    if (pool.length > 0) {
+        return pool[Math.floor(Math.random() * pool.length)];
+    }
+    const fallback = ['嗯嗯~', '哈哈，是吧', '我也这么觉得', '嘿嘿', '是呀', '对呢', '收到啦~', '么么'];
+    return fallback[Math.floor(Math.random() * fallback.length)];
+}
+
+function schedulePartnerCommentOnMoment(momentId) {
+    const delay = 1000 + Math.random() * (24 * 3600 * 1000 - 1000);
+    setTimeout(() => {
+        const moment = momentsData.find(m => m.id === momentId);
+        if (!moment) return;
+        if (!moment.comments) moment.comments = [];
+        moment.comments.push({ author: 'partner', text: randomReplyFromCardLibrary(), timestamp: new Date().toISOString() });
+        saveMomentsData();
+        renderMomentsFeed();
+        playSound('message');
+        showNotification('对方评论了你的朋友圈', 'success');
+    }, delay);
 }
 
 function deleteMoment(id) {
