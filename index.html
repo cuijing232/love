@@ -11,12 +11,13 @@
     <title>传讯</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="icon" type="image/png" sizes="192x192" href="https://file.youtochat.com/images/20260216/1771224856844_qdqqd.jpeg">
     <link rel="apple-touch-icon" href="https://file.youtochat.com/images/20260216/1771224856844_qdqqd.jpeg">
     <meta name="apple-mobile-web-app-title" content="ʚ𝑳𝑶𝑽𝑬ɞ">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.10.0/localforage.min.js"></script>
     <style>
         * {
             scrollbar-width: none;
@@ -8792,7 +8793,7 @@
         .call-func-btn { width:56px; height:56px; border-radius:50%; border:none; cursor:pointer; font-size:22px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.16); color:#fff; transition:all 0.15s; }
         .call-func-btn.toggled { background:var(--accent-color); color:#fff; }
         .call-hangup { background:#ff4d4f; width:66px; height:66px; font-size:26px; }
-        .call-mini { position:fixed; bottom:110px; right:14px; z-index:9997; display:none; align-items:center; gap:8px; background:rgba(20,20,35,0.92); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.18); border-radius:40px; padding:6px 12px 6px 6px; cursor:pointer; box-shadow:0 6px 24px rgba(0,0,0,0.45); animation:callMiniIn 0.25s ease; }
+        .call-mini { position:fixed; bottom:110px; right:14px; z-index:9997; display:none; align-items:center; gap:8px; background:rgba(20,20,35,0.92); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.18); border-radius:40px; padding:6px 12px 6px 6px; cursor:pointer; box-shadow:0 6px 24px rgba(0,0,0,0.45); animation:callMiniIn 0.25s ease; touch-action:none; user-select:none; -webkit-user-select:none; }
         .call-mini.active { display:flex; }
         @keyframes callMiniIn { from{transform:translateY(16px);opacity:0} to{transform:translateY(0);opacity:1} }
         .call-mini-avatar { width:38px; height:38px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:var(--accent-color); color:#fff; font-size:16px; flex-shrink:0; }
@@ -8873,10 +8874,10 @@
                     <div class="splash-slide" data-index="4">
                         <div class="splash-slide-tag">入场承诺</div>
                         <div class="splash-slide-title">请留下你的承诺</div>
-                        <div class="splash-pledge-desc">在下方输入框中，<em style="color:rgba(var(--accent-color-rgb,197,164,126),0.8);font-style:normal;">逐字抄写</em>以下承诺，即可进入网站。</div>
-                        <div class="splash-pledge-required" id="splash-pledge-text">我绝不盈利、造谣、污蔑或嘲讽，并对自己的使用行为负完全责任</div>
-                        <input class="splash-pledge-input" id="splash-pledge-input" type="text" placeholder="请在此逐字输入上方承诺…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
-                        <div class="splash-pledge-hint" id="splash-pledge-hint">请完整输入上方承诺后方可进入</div>
+                        <div class="splash-pledge-desc">在下方输入框中输入上方承诺即可进入（标点可忽略，<em style="color:rgba(var(--accent-color-rgb,197,164,126),0.8);font-style:normal;">点击承诺文字可自动填入</em>）。</div>
+                        <div class="splash-pledge-required" id="splash-pledge-text" title="点击自动填入">我绝不盈利、造谣、污蔑或嘲讽，并对自己的使用行为负完全责任</div>
+                        <input class="splash-pledge-input" id="splash-pledge-input" type="text" placeholder="请在上方输入承诺，或点击承诺文字自动填入…" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" />
+                        <div class="splash-pledge-hint" id="splash-pledge-hint">标点符号可忽略，或点击上方承诺文字自动填入</div>
                     </div>
 
                 </div>
@@ -10681,6 +10682,150 @@
             </div>
         </div>
     </div>
+
+    <script>
+        // ===== 内联存储层（替代 localforage CDN，零外部依赖，任何网络环境可正常进入） =====
+        window.localforage = (function () {
+            var INDEXEDDB = 1, WEBSQL = 2, LOCALSTORAGE = 3;
+            var DB_NAME = 'CHAT_APP_V3_DB';
+            var STORE = 'kv';
+            var dbPromise = null;
+            function openDB() {
+                if (dbPromise) return dbPromise;
+                dbPromise = new Promise(function (resolve) {
+                    try {
+                        if (!window.indexedDB) { resolve(null); return; }
+                        var req = indexedDB.open(DB_NAME, 1);
+                        req.onupgradeneeded = function () {
+                            var d = req.result;
+                            if (!d.objectStoreNames.contains(STORE)) d.createObjectStore(STORE);
+                        };
+                        req.onsuccess = function () { resolve(req.result); };
+                        req.onerror = function () { resolve(null); };
+                    } catch (e) { resolve(null); }
+                });
+                return dbPromise;
+            }
+            function idbGet(db, key) {
+                return new Promise(function (resolve) {
+                    try {
+                        var tx = db.transaction(STORE, 'readonly');
+                        var r = tx.objectStore(STORE).get(key);
+                        r.onsuccess = function () { resolve(r.result !== undefined ? r.result : null); };
+                        r.onerror = function () { resolve(null); };
+                    } catch (e) { resolve(null); }
+                });
+            }
+            function idbSet(db, key, value) {
+                return new Promise(function (resolve) {
+                    try {
+                        var tx = db.transaction(STORE, 'readwrite');
+                        tx.objectStore(STORE).put(value, key);
+                        tx.oncomplete = function () { resolve(value); };
+                        tx.onerror = function () { resolve(value); };
+                    } catch (e) { resolve(value); }
+                });
+            }
+            function idbRemove(db, key) {
+                return new Promise(function (resolve) {
+                    try {
+                        var tx = db.transaction(STORE, 'readwrite');
+                        tx.objectStore(STORE).delete(key);
+                        tx.oncomplete = resolve;
+                        tx.onerror = resolve;
+                    } catch (e) { resolve(); }
+                });
+            }
+            function idbClear(db) {
+                return new Promise(function (resolve) {
+                    try {
+                        var tx = db.transaction(STORE, 'readwrite');
+                        tx.objectStore(STORE).clear();
+                        tx.oncomplete = resolve;
+                        tx.onerror = resolve;
+                    } catch (e) { resolve(); }
+                });
+            }
+            function idbKeys(db) {
+                return new Promise(function (resolve) {
+                    try {
+                        var tx = db.transaction(STORE, 'readonly');
+                        var r = tx.objectStore(STORE).getAllKeys();
+                        r.onsuccess = function () { resolve(r.result || []); };
+                        r.onerror = function () { resolve([]); };
+                    } catch (e) { resolve([]); }
+                });
+            }
+            function lsGet(key) {
+                try {
+                    var v = localStorage.getItem(key);
+                    if (v === null) return null;
+                    try { return JSON.parse(v); } catch (e) { return v; }
+                } catch (e) { return null; }
+            }
+            function lsSet(key, value) {
+                try { localStorage.setItem(key, typeof value === 'string' ? value : JSON.stringify(value)); } catch (e) {}
+                return value;
+            }
+            function lsRemove(key) { try { localStorage.removeItem(key); } catch (e) {} }
+            function lsClear() { try { localStorage.clear(); } catch (e) {} }
+            function lsKeys() { try { return Object.keys(localStorage); } catch (e) { return []; } }
+            var mem = {};
+            function memGet(key) { return key in mem ? mem[key] : null; }
+            function memSet(key, value) { mem[key] = value; return value; }
+            function memRemove(key) { delete mem[key]; }
+            function memClear() { mem = {}; }
+            function memKeys() { return Object.keys(mem); }
+            var lsUsable = (function () { try { localStorage.setItem('__ls_t__', '1'); localStorage.removeItem('__ls_t__'); return true; } catch (e) { return false; } })();
+            return {
+                INDEXEDDB: INDEXEDDB, WEBSQL: WEBSQL, LOCALSTORAGE: LOCALSTORAGE,
+                config: function () {},
+                getItem: function (key) {
+                    return openDB().then(function (db) {
+                        if (db) return idbGet(db, key);
+                        if (lsUsable) return Promise.resolve(lsGet(key));
+                        return Promise.resolve(memGet(key));
+                    });
+                },
+                setItem: function (key, value) {
+                    return openDB().then(function (db) {
+                        if (db) return idbSet(db, key, value);
+                        if (lsUsable) return Promise.resolve(lsSet(key, value));
+                        return Promise.resolve(memSet(key, value));
+                    });
+                },
+                removeItem: function (key) {
+                    return openDB().then(function (db) {
+                        if (db) return idbRemove(db, key);
+                        if (lsUsable) { lsRemove(key); return Promise.resolve(); }
+                        memRemove(key); return Promise.resolve();
+                    });
+                },
+                clear: function () {
+                    return openDB().then(function (db) {
+                        if (db) return idbClear(db);
+                        if (lsUsable) { lsClear(); return Promise.resolve(); }
+                        memClear(); return Promise.resolve();
+                    });
+                },
+                keys: function () {
+                    return openDB().then(function (db) {
+                        if (db) return idbKeys(db);
+                        if (lsUsable) return Promise.resolve(lsKeys());
+                        return Promise.resolve(memKeys());
+                    });
+                }
+            };
+        })();
+        // 老旧浏览器缺失 ResizeObserver 时兜底，避免初始化中断
+        if (typeof ResizeObserver === 'undefined') {
+            window.ResizeObserver = function () {
+                this.observe = function () {};
+                this.unobserve = function () {};
+                this.disconnect = function () {};
+            };
+        }
+    </script>
 
     <script>
         const APP_PREFIX = 'CHAT_APP_V3_';
@@ -13019,6 +13164,7 @@ maybeRecallPartnerMessage(partnerMsgId);
             if (callState.phase !== 'active') return;
             document.getElementById('call-active-overlay').classList.remove('active');
             document.getElementById('call-mini-name').textContent = settings.partnerName || '对方';
+            setCallAvatar(document.getElementById('call-mini-avatar'));
             document.getElementById('call-mini').classList.add('active');
         }
 
@@ -13026,6 +13172,63 @@ maybeRecallPartnerMessage(partnerMsgId);
             if (callState.phase !== 'active') return;
             document.getElementById('call-mini').classList.remove('active');
             document.getElementById('call-active-overlay').classList.add('active');
+        }
+
+        function initCallMiniDrag() {
+            const mini = document.getElementById('call-mini');
+            if (!mini) return;
+            let dragging = false, moved = false, startX = 0, startY = 0, origLeft = 0, origTop = 0;
+            const clamp = (left, top) => {
+                const mw = mini.offsetWidth, mh = mini.offsetHeight;
+                left = Math.max(8, Math.min(window.innerWidth - mw - 8, left));
+                top = Math.max(8, Math.min(window.innerHeight - mh - 8, top));
+                return [left, top];
+            };
+            const onMove = (cx, cy) => {
+                if (!dragging) return;
+                const dx = cx - startX, dy = cy - startY;
+                if (Math.abs(dx) > 6 || Math.abs(dy) > 6) moved = true;
+                const [left, top] = clamp(origLeft + dx, origTop + dy);
+                mini.style.left = left + 'px';
+                mini.style.top = top + 'px';
+                mini.style.right = 'auto';
+                mini.style.bottom = 'auto';
+            };
+            mini.addEventListener('touchstart', (e) => {
+                if (e.touches.length !== 1) return;
+                dragging = true; moved = false;
+                const rect = mini.getBoundingClientRect();
+                startX = e.touches[0].clientX; startY = e.touches[0].clientY;
+                origLeft = rect.left; origTop = rect.top;
+                mini.style.transition = 'none';
+            }, { passive: true });
+            mini.addEventListener('touchmove', (e) => {
+                if (!dragging) return;
+                e.preventDefault();
+                onMove(e.touches[0].clientX, e.touches[0].clientY);
+            }, { passive: false });
+            mini.addEventListener('touchend', () => {
+                dragging = false;
+                mini.style.transition = '';
+                if (moved) window.__callMiniMoved = true;
+            });
+            mini.addEventListener('mousedown', (e) => {
+                dragging = true; moved = false;
+                const rect = mini.getBoundingClientRect();
+                startX = e.clientX; startY = e.clientY;
+                origLeft = rect.left; origTop = rect.top;
+                mini.style.transition = 'none';
+                e.preventDefault();
+            });
+            document.addEventListener('mousemove', (e) => {
+                if (!dragging) return;
+                onMove(e.clientX, e.clientY);
+            });
+            document.addEventListener('mouseup', () => {
+                dragging = false;
+                mini.style.transition = '';
+                if (moved) window.__callMiniMoved = true;
+            });
         }
 
         function endCall() {
@@ -13080,7 +13283,11 @@ maybeRecallPartnerMessage(partnerMsgId);
         document.getElementById('call-decline-btn').addEventListener('click', declineCall);
         document.getElementById('call-hangup-btn').addEventListener('click', endCall);
         document.getElementById('call-minimize-btn').addEventListener('click', minimizeCall);
-        document.getElementById('call-mini').addEventListener('click', restoreCall);
+        document.getElementById('call-mini').addEventListener('click', () => {
+            if (window.__callMiniMoved) { window.__callMiniMoved = false; return; }
+            restoreCall();
+        });
+        initCallMiniDrag();
         document.getElementById('call-switch-btn').addEventListener('click', toggleCallMode);
         document.getElementById('call-mute-btn').addEventListener('click', toggleCallMute);
         document.getElementById('call-cancel-btn').addEventListener('click', cancelOutgoingCall);
@@ -14565,7 +14772,6 @@ function initMomentsModule() {
     const momentsBtn = document.getElementById('moments-btn');
     if (momentsBtn) {
         momentsBtn.addEventListener('click', () => {
-            clearMomentsUnread();
             document.getElementById('moments-page').classList.add('active');
             renderMomentsFeed();
         });
@@ -14580,9 +14786,9 @@ function initMomentsModule() {
         });
     }
 
-    const cameraBtn = document.getElementById('moments-camera-btn');
-    if (cameraBtn) {
-        cameraBtn.addEventListener('click', () => {
+    const momentsBannerEl = document.getElementById('moments-banner');
+    if (momentsBannerEl) {
+        momentsBannerEl.addEventListener('click', () => {
             document.getElementById('moments-banner-input').click();
         });
     }
@@ -15035,31 +15241,9 @@ function partnerRandomPostMoment() {
     };
     momentsData.unshift(moment);
     saveMomentsData();
-    const momentsPageActive = document.getElementById('moments-page').classList.contains('active');
-    if (momentsPageActive) {
+    if (document.getElementById('moments-page').classList.contains('active')) {
         renderMomentsFeed();
-    } else {
-        markMomentsUnread();
-        playSound('message');
-        showNotification('对方发了一条朋友圈', 'info');
     }
-}
-
-function markMomentsUnread() {
-    const btn = document.getElementById('moments-btn');
-    if (!btn) return;
-    if (btn.querySelector('.moments-unread-dot')) return;
-    const dot = document.createElement('span');
-    dot.className = 'moments-unread-dot';
-    dot.style.cssText = 'position:absolute;top:4px;right:4px;width:9px;height:9px;border-radius:50%;background:#ff4d4f;border:2px solid #fff;';
-    btn.style.position = 'relative';
-    btn.appendChild(dot);
-}
-function clearMomentsUnread() {
-    const btn = document.getElementById('moments-btn');
-    if (!btn) return;
-    const dot = btn.querySelector('.moments-unread-dot');
-    if (dot) dot.remove();
 }
 
 function getNextMomentDelay() {
@@ -15069,33 +15253,14 @@ function getNextMomentDelay() {
     const hi = Math.max(min, max);
     return (lo + Math.random() * (hi - lo)) * 3600000;
 }
-let nextPartnerMomentAt = 0;
-function saveNextPartnerMomentAt() {
-    try { localStorage.setItem('CHAT_APP_MOMENT_NEXT_AT', String(nextPartnerMomentAt)); } catch (e) {}
-}
-function loadNextPartnerMomentAt() {
-    const saved = parseInt(localStorage.getItem('CHAT_APP_MOMENT_NEXT_AT') || '0', 10);
-    if (saved > 0) {
-        nextPartnerMomentAt = saved;
-    } else {
-        nextPartnerMomentAt = Date.now() + getNextMomentDelay();
-        saveNextPartnerMomentAt();
-    }
-}
-function checkPartnerMomentPost() {
+let nextPartnerMomentAt = Date.now() + getNextMomentDelay();
+setInterval(() => {
     if (typeof settings === 'undefined' || !settings || settings.momentIntervalEnabled === false) return;
     if (Date.now() >= nextPartnerMomentAt) {
         partnerRandomPostMoment();
         nextPartnerMomentAt = Date.now() + getNextMomentDelay();
-        saveNextPartnerMomentAt();
     }
-}
-loadNextPartnerMomentAt();
-checkPartnerMomentPost();
-setInterval(checkPartnerMomentPost, 30000);
-document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) checkPartnerMomentPost();
-});
+}, 60000);
 
 /* ===== 快捷背景按钮 ===== */
 function initQuickBgBtn() {
@@ -22054,14 +22219,26 @@ window.startEditDgWeather = function(el) {
         var splash = document.getElementById('splash-declaration');
         if (!splash) return;
 
-        localStorage.removeItem('splashPledgeSigned_v2');
-        localStorage.removeItem('splashPledgeSigned_v1');
-        localStorage.removeItem('splashPledgeSigned');
-
-        if (localStorage.getItem(PLEDGE_KEY) === 'true') {
+        // 存储不可用时直接放行，避免永远卡在声明页
+        var storageOK = true;
+        try { localStorage.setItem('__splash_test__', '1'); localStorage.removeItem('__splash_test__'); } catch (e) { storageOK = false; }
+        if (!storageOK) {
             splash.style.display = 'none';
             return;
         }
+
+        try {
+            localStorage.removeItem('splashPledgeSigned_v2');
+            localStorage.removeItem('splashPledgeSigned_v1');
+            localStorage.removeItem('splashPledgeSigned');
+        } catch (e) {}
+
+        try {
+            if (localStorage.getItem(PLEDGE_KEY) === 'true') {
+                splash.style.display = 'none';
+                return;
+            }
+        } catch (e) {}
 
         var starsEl = document.getElementById('splash-stars');
         if (starsEl) {
@@ -22110,24 +22287,38 @@ window.startEditDgWeather = function(el) {
             });
         }
         if (pledgeInp) {
-            pledgeInp.addEventListener('input', function() {
+            // 匹配时忽略空格与标点（全角/半角均可），避免因输入法标点差异卡住
+            function normPledge(s) {
+                return String(s || '').replace(/[\s\u3000，。、,.!！?？;；:：'"'‘’“”（）()【】\[\]~～\-—_=+*&^%$#@]/g, '');
+            }
+            function checkPledge() {
                 var val = pledgeInp.value;
                 var hint = document.getElementById('splash-pledge-hint');
-                if (val === PLEDGE_TEXT) {
+                if (normPledge(val) === normPledge(PLEDGE_TEXT)) {
                     pledgeInp.classList.add('correct');
                     if (hint) { hint.textContent = '✓ 承诺已确认，可以进入了'; hint.className = 'splash-pledge-hint ok'; }
                     if (enterBtn) enterBtn.classList.add('ready');
                 } else {
                     pledgeInp.classList.remove('correct');
-                    if (hint) { hint.textContent = '请完整输入上方承诺后方可进入'; hint.className = 'splash-pledge-hint'; }
+                    if (hint) { hint.textContent = '标点符号可忽略，或点击上方承诺文字自动填入'; hint.className = 'splash-pledge-hint'; }
                     if (enterBtn) enterBtn.classList.remove('ready');
                 }
-            });
+            }
+            pledgeInp.addEventListener('input', checkPledge);
             pledgeInp.addEventListener('keydown', function(e) {
                 if (e.key === 'Enter' && enterBtn && enterBtn.classList.contains('ready')) {
                     enterSite();
                 }
             });
+            var pledgeTextEl = document.getElementById('splash-pledge-text');
+            if (pledgeTextEl) {
+                pledgeTextEl.style.cursor = 'pointer';
+                pledgeTextEl.style.textDecoration = 'underline dotted';
+                pledgeTextEl.addEventListener('click', function() {
+                    pledgeInp.value = PLEDGE_TEXT;
+                    checkPledge();
+                });
+            }
         }
 
         if (dotsEl) {
@@ -22191,7 +22382,7 @@ window.startEditDgWeather = function(el) {
     }
 
     function enterSite() {
-        localStorage.setItem(PLEDGE_KEY, 'true');
+        try { localStorage.setItem(PLEDGE_KEY, 'true'); } catch (e) {}
         var splash = document.getElementById('splash-declaration');
         if (splash) {
             splash.classList.add('splash-fade-out');
@@ -22301,7 +22492,7 @@ window.addEventListener('load', function() {
     <div class="moments-header">
         <button class="moments-header-back" id="moments-back-btn"><i class="fas fa-arrow-left"></i></button>
         <span class="moments-header-title">朋友圈</span>
-        <button class="moments-header-camera" id="moments-camera-btn"><i class="fas fa-camera"></i></button>
+        <label class="moments-header-camera" id="moments-camera-btn" for="moments-banner-input" style="cursor:pointer;" title="更换朋友圈封面"><i class="fas fa-camera"></i></label>
         <button class="moments-header-camera" id="moments-time-btn" onclick="openMomentTimeModal()" title="朋友圈时间设置"><i class="fas fa-clock"></i></button>
     </div>
     <div class="moments-banner" id="moments-banner">
