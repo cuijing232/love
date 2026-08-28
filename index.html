@@ -8758,6 +8758,55 @@
         .quick-bg-btn:hover { opacity: 1; transform: scale(1.08); }
 
 
+        /* ===== 语音视频通话 ===== */
+        .call-overlay { position:fixed; inset:0; z-index:9999; display:none; flex-direction:column; align-items:center; justify-content:center; background:rgba(0,0,0,0.72); backdrop-filter:blur(6px); }
+        .call-overlay.active { display:flex; }
+        .call-ring-avatar { position:relative; width:104px; height:104px; border-radius:50%; overflow:hidden; border:3px solid rgba(var(--accent-color-rgb,99,102,241),0.8); box-shadow:0 0 40px rgba(var(--accent-color-rgb,99,102,241),0.45); display:flex; align-items:center; justify-content:center; background:var(--primary-bg); }
+        .call-ring-avatar img { width:100%; height:100%; object-fit:cover; }
+        .call-ring-avatar i { font-size:42px; color:var(--accent-color); opacity:0.7; }
+        .call-ring-wave { position:absolute; inset:-8px; border-radius:50%; border:2px solid rgba(var(--accent-color-rgb,99,102,241),0.5); animation:callWave 1.6s ease-out infinite; }
+        .call-ring-wave.w2 { animation-delay:0.8s; }
+        @keyframes callWave { 0%{transform:scale(1);opacity:0.8} 100%{transform:scale(1.55);opacity:0} }
+        .call-overlay-name { margin-top:22px; font-size:20px; font-weight:700; color:#fff; }
+        .call-overlay-sub { margin-top:6px; font-size:13px; color:rgba(255,255,255,0.65); }
+        .call-actions { display:flex; gap:48px; margin-top:52px; }
+        .call-action-btn { width:60px; height:60px; border-radius:50%; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:24px; color:#fff; transition:transform 0.15s; }
+        .call-action-btn:active { transform:scale(0.92); }
+        .call-decline { background:#ff4d4f; }
+        .call-accept { background:#2ecc71; }
+        .call-active-overlay { position:fixed; inset:0; z-index:9998; display:none; flex-direction:column; align-items:center; justify-content:center; background:linear-gradient(160deg, #1a1a2e 0%, #16213e 55%, #0f3460 100%); }
+        .call-active-overlay.active { display:flex; }
+        .call-video-bg { position:absolute; inset:0; display:none; align-items:center; justify-content:center; background:radial-gradient(circle at 30% 30%, rgba(99,102,241,0.25), transparent 60%), radial-gradient(circle at 70% 70%, rgba(236,72,153,0.18), transparent 60%); }
+        .call-video-bg.active { display:flex; }
+        .call-video-bg .call-ring-avatar { width:200px; height:200px; border-width:4px; }
+        .call-active-top { position:absolute; top:0; left:0; right:0; padding:18px 20px; display:flex; align-items:center; justify-content:space-between; z-index:2; }
+        .call-active-top .call-name { font-size:16px; font-weight:700; color:#fff; }
+        .call-active-top .call-status { font-size:12px; color:rgba(255,255,255,0.6); margin-top:2px; }
+        .call-minimize-btn { background:rgba(255,255,255,0.14); border:none; color:#fff; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:15px; display:flex; align-items:center; justify-content:center; }
+        .call-active-mid { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; }
+        .call-active-avatar { width:150px; height:150px; border-radius:50%; overflow:hidden; border:3px solid rgba(255,255,255,0.35); box-shadow:0 0 50px rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center; background:#0d1326; }
+        .call-active-avatar img { width:100%; height:100%; object-fit:cover; }
+        .call-active-avatar i { font-size:60px; color:#fff; opacity:0.75; }
+        .call-timer { margin-top:24px; font-size:32px; font-weight:600; color:#fff; letter-spacing:1px; font-variant-numeric:tabular-nums; }
+        .call-active-bottom { position:absolute; bottom:60px; left:0; right:0; display:flex; align-items:center; justify-content:center; gap:42px; z-index:2; }
+        .call-func-btn { width:56px; height:56px; border-radius:50%; border:none; cursor:pointer; font-size:22px; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,0.16); color:#fff; transition:all 0.15s; }
+        .call-func-btn.toggled { background:var(--accent-color); color:#fff; }
+        .call-hangup { background:#ff4d4f; width:66px; height:66px; font-size:26px; }
+        .call-mini { position:fixed; bottom:110px; right:14px; z-index:9997; display:none; align-items:center; gap:8px; background:rgba(20,20,35,0.92); backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.18); border-radius:40px; padding:6px 12px 6px 6px; cursor:pointer; box-shadow:0 6px 24px rgba(0,0,0,0.45); animation:callMiniIn 0.25s ease; }
+        .call-mini.active { display:flex; }
+        @keyframes callMiniIn { from{transform:translateY(16px);opacity:0} to{transform:translateY(0);opacity:1} }
+        .call-mini-avatar { width:38px; height:38px; border-radius:50%; overflow:hidden; display:flex; align-items:center; justify-content:center; background:var(--accent-color); color:#fff; font-size:16px; flex-shrink:0; }
+        .call-mini-avatar img { width:100%; height:100%; object-fit:cover; }
+        .call-mini-info { display:flex; flex-direction:column; }
+        .call-mini-name { font-size:12px; font-weight:700; color:#fff; }
+        .call-mini-timer { font-size:11px; color:rgba(255,255,255,0.6); font-variant-numeric:tabular-nums; }
+        .call-mini i.fa-phone { color:#2ecc71; font-size:13px; margin-right:2px; }
+        .call-cancel { background:#ff4d4f; }
+        .call-out-menu { position:absolute; bottom:calc(100% + 8px); left:8px; display:none; flex-direction:column; background:var(--card-bg,var(--primary-bg)); border:1px solid var(--border-color); border-radius:14px; padding:6px; box-shadow:0 8px 28px rgba(0,0,0,0.35); z-index:120; min-width:132px; }
+        .call-out-menu.active { display:flex; }
+        .call-out-menu button { display:flex; align-items:center; gap:10px; background:none; border:none; color:var(--text-primary); font-size:13.5px; font-weight:600; padding:10px 14px; border-radius:9px; cursor:pointer; text-align:left; }
+        .call-out-menu button:hover { background:rgba(var(--accent-color-rgb),0.12); color:var(--accent-color); }
+        .call-out-menu button i { width:18px; text-align:center; color:var(--accent-color); }
     </style>
 </head>
 <body>
@@ -9029,11 +9078,66 @@
             </div>
         </div>
     </div>
+    <!-- 来电界面 -->
+    <div class="call-overlay" id="call-incoming-overlay">
+        <div class="call-ring-avatar" id="call-incoming-avatar"><i class="fas fa-user"></i></div>
+        <div class="call-overlay-name" id="call-incoming-name">对方</div>
+        <div class="call-overlay-sub" id="call-incoming-sub">邀请你语音通话...</div>
+        <div class="call-actions">
+            <button class="call-action-btn call-decline" id="call-decline-btn" title="拒绝"><i class="fas fa-phone-slash"></i></button>
+            <button class="call-action-btn call-accept" id="call-accept-btn" title="接听"><i class="fas fa-phone"></i></button>
+        </div>
+    </div>
+    <!-- 呼出界面 -->
+    <div class="call-overlay" id="call-outgoing-overlay">
+        <div class="call-ring-avatar" id="call-outgoing-avatar"><i class="fas fa-user"></i></div>
+        <div class="call-overlay-name" id="call-outgoing-name">对方</div>
+        <div class="call-overlay-sub" id="call-outgoing-sub">正在呼叫...</div>
+        <div class="call-actions">
+            <button class="call-action-btn call-cancel" id="call-cancel-btn" title="取消"><i class="fas fa-phone-slash"></i></button>
+        </div>
+    </div>
+    <!-- 通话界面 -->
+    <div class="call-active-overlay" id="call-active-overlay">
+        <div class="call-video-bg" id="call-video-bg">
+            <div class="call-ring-avatar"><span class="call-ring-wave"></span><span class="call-ring-wave w2"></span><div id="call-video-avatar-inner"><i class="fas fa-user"></i></div></div>
+        </div>
+        <div class="call-active-top">
+            <div>
+                <div class="call-name" id="call-active-name">对方</div>
+                <div class="call-status" id="call-active-status">语音通话中</div>
+            </div>
+            <button class="call-minimize-btn" id="call-minimize-btn" title="最小化"><i class="fas fa-minus"></i></button>
+        </div>
+        <div class="call-active-mid">
+            <div class="call-active-avatar" id="call-active-avatar"><i class="fas fa-user"></i></div>
+            <div class="call-timer" id="call-timer">00:00</div>
+        </div>
+        <div class="call-active-bottom">
+            <button class="call-func-btn" id="call-mute-btn" title="静音"><i class="fas fa-microphone"></i></button>
+            <button class="call-func-btn" id="call-switch-btn" title="切换视频/语音"><i class="fas fa-video"></i></button>
+            <button class="call-action-btn call-hangup" id="call-hangup-btn" title="挂断"><i class="fas fa-phone-slash"></i></button>
+        </div>
+    </div>
+    <!-- 最小化通话胶囊 -->
+    <div class="call-mini" id="call-mini">
+        <div class="call-mini-avatar" id="call-mini-avatar"><i class="fas fa-user"></i></div>
+        <div class="call-mini-info">
+            <div class="call-mini-name" id="call-mini-name">对方</div>
+            <div class="call-mini-timer"><i class="fas fa-phone"></i><span id="call-mini-timer">00:00</span></div>
+        </div>
+    </div>
     <div class="input-area-wrapper">
         <div class="batch-preview" id="batch-preview"></div>
         <div id="reply-preview-container"></div>
         <div class="input-area">
     <button class="attachment-btn input-btn" id="attachment-btn" title="发送图片"><i class="fas fa-image"></i></button>
+
+    <button class="attachment-btn input-btn" id="call-btn" title="语音/视频通话" style="color:var(--accent-color);"><i class="fas fa-phone"></i></button>
+    <div class="call-out-menu" id="call-out-menu">
+        <button id="call-out-audio"><i class="fas fa-phone"></i> 语音通话</button>
+        <button id="call-out-video"><i class="fas fa-video"></i> 视频通话</button>
+    </div>
     
     <button class="combo-btn input-btn" id="combo-btn" title="表情 & 拍一拍">
         <i class="fas fa-laugh-beam"></i>
@@ -9828,6 +9932,27 @@
                 <div class="setting-pill-row" id="moment-interval-toggle" onclick="toggleMomentInterval()">
                     <span class="setting-pill-icon"><i class="fas fa-paper-plane"></i></span>
                     <span class="setting-pill-label">自动发朋友圈</span>
+                    <div class="setting-pill-switch"><div class="setting-pill-knob"></div></div>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <div class="settings-section-title">
+                    <i class="fas fa-comment-dots"></i>对方评论朋友圈时间
+                </div>
+                <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">你发朋友圈后，对方在区间内随机时间评论</div>
+                <div class="moment-interval-row">
+                    <span class="moment-interval-label">最小</span>
+                    <input type="number" class="moment-interval-input" id="moment-comment-min" min="1" max="600" value="5">
+                    <span>秒</span>
+                    <span style="margin:0 6px;color:var(--text-secondary);">~</span>
+                    <span class="moment-interval-label">最大</span>
+                    <input type="number" class="moment-interval-input" id="moment-comment-max" min="1" max="600" value="60">
+                    <span>秒</span>
+                </div>
+                <div class="setting-pill-row" id="moment-comment-toggle" onclick="toggleMomentComment()">
+                    <span class="setting-pill-icon"><i class="fas fa-comment-dots"></i></span>
+                    <span class="setting-pill-label">对方评论我的朋友圈</span>
                     <div class="setting-pill-switch"><div class="setting-pill-knob"></div></div>
                 </div>
             </div>
@@ -11433,6 +11558,9 @@ autoSendInterval: 5,
         momentIntervalEnabled: true,
         momentIntervalMin: 1,
         momentIntervalMax: 24,
+        momentCommentEnabled: true,
+        momentCommentMin: 5,
+        momentCommentMax: 60,
         customSoundUrl: '',
         soundVolume: 0.15
             };
@@ -12292,8 +12420,13 @@ function manageAutoSendTimer() {
                     messageHTML += `<div class="reply-indicator"><span class="reply-indicator-sender">${repliedSender}</span><span class="reply-indicator-text">${repliedText}</span></div>`;
                 }
 
-                let content = msg.text ? `<div>${msg.text.replace(/\n/g, '<br>')}</div>`: '';
-                if (msg.image) content += `<img src="${msg.image}" class="message-image" alt="图片" style="max-width: 200px; border-radius: 8px; margin-top: 8px; cursor: pointer;" onclick="viewImage('${msg.image}')">`;
+                let content = '';
+                if (msg.recalled) {
+                    content = '<div style="font-style:italic;color:var(--text-secondary);font-size:13px;">对方撤回了一条消息</div>';
+                } else {
+                    content = msg.text ? `<div>${msg.text.replace(/\n/g, '<br>')}</div>`: '';
+                    if (msg.image) content += `<img src="${msg.image}" class="message-image" alt="图片" style="max-width: 200px; border-radius: 8px; margin-top: 8px; cursor: pointer;" onclick="viewImage('${msg.image}')">`;
+                }
                 messageHTML += content;
 
                 if (msg.note) messageHTML += `<div class="message-note">${msg.note}</div>`;
@@ -12704,8 +12837,9 @@ if (settings.replyEnabled && Math.random() < 0.1) {
     }
 }
 
+const partnerMsgId = Date.now() + i;
 addMessage({
-    id: Date.now() + i,
+    id: partnerMsgId,
     sender: 'partner',
     text: text,
     image: image, 
@@ -12714,6 +12848,7 @@ addMessage({
     replyTo,
     type: 'normal'
 });
+maybeRecallPartnerMessage(partnerMsgId);
                     playSound('message');
                     if (document.hidden && 'Notification' in window && Notification.permission === 'granted') {
                         const notifTitle = settings.partnerName || '对方';
@@ -12731,7 +12866,245 @@ addMessage({
                 },
                     delay);
             }
+
+            // 对方可能主动发起语音/视频通话
+            if (Math.random() < 0.10) {
+                const callDelay = 2500 + Math.random() * 8000;
+                setTimeout(() => { if (callState.phase === 'idle' && typeof initiatePartnerCall === 'function') initiatePartnerCall(); }, callDelay);
+            }
         }
+
+        function maybeRecallPartnerMessage(msgId) {
+            if (Math.random() >= 0.12) return;
+            const delay = 3000 + Math.random() * 12000;
+            setTimeout(() => {
+                const msg = messages.find(m => m.id === msgId);
+                if (!msg || msg.recalled) return;
+                msg.recalled = true;
+                renderMessages(false);
+                throttledSaveData();
+                showNotification('对方撤回了一条消息', 'info');
+            }, delay);
+        }
+
+        /* ===== 语音视频通话 ===== */
+        const callState = { phase: 'idle', mode: 'audio', startTime: 0, timer: null, ringTimer: null, audioCtx: null, mute: false };
+
+        function setCallAvatar(el) {
+            if (!el) return;
+            try {
+                const partnerImg = DOMElements.partner.avatar.querySelector('img');
+                if (partnerImg && partnerImg.src) {
+                    el.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = partnerImg.src;
+                    el.appendChild(img);
+                } else {
+                    el.innerHTML = '<i class="fas fa-user"></i>';
+                }
+            } catch (e) {
+                el.innerHTML = '<i class="fas fa-user"></i>';
+            }
+        }
+
+        function startRingTone() {
+            try {
+                if (!callState.audioCtx) callState.audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                if (callState.audioCtx.state === 'suspended') callState.audioCtx.resume();
+                const beep = () => {
+                    const osc = callState.audioCtx.createOscillator();
+                    const gain = callState.audioCtx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.value = 620;
+                    gain.gain.setValueAtTime(0.0001, callState.audioCtx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.22, callState.audioCtx.currentTime + 0.06);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, callState.audioCtx.currentTime + 0.55);
+                    osc.connect(gain).connect(callState.audioCtx.destination);
+                    osc.start();
+                    osc.stop(callState.audioCtx.currentTime + 0.6);
+                };
+                beep();
+                callState.ringTimer = setInterval(() => { if (callState.phase === 'incoming') beep(); }, 1100);
+            } catch (e) {}
+            if (navigator.vibrate) { try { navigator.vibrate([400, 200, 400]); } catch (e) {} }
+        }
+
+        function stopRingTone() {
+            if (callState.ringTimer) { clearInterval(callState.ringTimer); callState.ringTimer = null; }
+        }
+
+        function initiatePartnerCall() {
+            if (callState.phase !== 'idle') return;
+            callState.phase = 'incoming';
+            callState.mode = Math.random() < 0.3 ? 'video' : 'audio';
+            const name = settings.partnerName || '对方';
+            document.getElementById('call-incoming-name').textContent = name;
+            document.getElementById('call-incoming-sub').textContent = callState.mode === 'video' ? '邀请你视频通话...' : '邀请你语音通话...';
+            setCallAvatar(document.getElementById('call-incoming-avatar'));
+            document.getElementById('call-incoming-overlay').classList.add('active');
+            startRingTone();
+            showNotification(`${name}发起${callState.mode === 'video' ? '视频' : '语音'}通话`, 'call');
+        }
+
+        function acceptCall() {
+            if (callState.phase !== 'incoming') return;
+            startActiveCall();
+        }
+
+        function startActiveCall() {
+            stopRingTone();
+            callState.phase = 'active';
+            callState.startTime = Date.now();
+            const name = settings.partnerName || '对方';
+            document.getElementById('call-active-name').textContent = name;
+            updateCallStatusUI();
+            setCallAvatar(document.getElementById('call-active-avatar'));
+            setCallAvatar(document.getElementById('call-video-avatar-inner'));
+            document.getElementById('call-incoming-overlay').classList.remove('active');
+            document.getElementById('call-outgoing-overlay').classList.remove('active');
+            document.getElementById('call-active-overlay').classList.add('active');
+            callState.timer = setInterval(() => {
+                const t = Math.floor((Date.now() - callState.startTime) / 1000);
+                const str = String(Math.floor(t / 60)).padStart(2, '0') + ':' + String(t % 60).padStart(2, '0');
+                const el = document.getElementById('call-timer');
+                const miniEl = document.getElementById('call-mini-timer');
+                if (el) el.textContent = str;
+                if (miniEl) miniEl.textContent = str;
+            }, 1000);
+        }
+
+        function initiateOutgoingCall(mode) {
+            if (callState.phase !== 'idle') return;
+            callState.phase = 'outgoing';
+            callState.mode = mode;
+            const name = settings.partnerName || '对方';
+            document.getElementById('call-outgoing-name').textContent = name;
+            document.getElementById('call-outgoing-sub').textContent = mode === 'video' ? '正在呼叫视频通话...' : '正在呼叫语音通话...';
+            setCallAvatar(document.getElementById('call-outgoing-avatar'));
+            document.getElementById('call-outgoing-overlay').classList.add('active');
+            startRingTone();
+            const respondDelay = 2500 + Math.random() * 3000;
+            setTimeout(() => partnerRespondToCall(), respondDelay);
+        }
+
+        function partnerRespondToCall() {
+            if (callState.phase !== 'outgoing') return;
+            if (Math.random() < 0.8) {
+                startActiveCall();
+            } else {
+                stopRingTone();
+                callState.phase = 'idle';
+                document.getElementById('call-outgoing-overlay').classList.remove('active');
+                showNotification('对方拒绝了通话', 'error');
+            }
+        }
+
+        function cancelOutgoingCall() {
+            if (callState.phase !== 'outgoing') return;
+            stopRingTone();
+            callState.phase = 'idle';
+            document.getElementById('call-outgoing-overlay').classList.remove('active');
+            showNotification('已取消呼叫', 'info');
+        }
+
+        function declineCall() {
+            if (callState.phase !== 'incoming') return;
+            stopRingTone();
+            callState.phase = 'idle';
+            document.getElementById('call-incoming-overlay').classList.remove('active');
+            showNotification('已拒绝对方的通话', 'info');
+        }
+
+        function minimizeCall() {
+            if (callState.phase !== 'active') return;
+            document.getElementById('call-active-overlay').classList.remove('active');
+            document.getElementById('call-mini-name').textContent = settings.partnerName || '对方';
+            document.getElementById('call-mini').classList.add('active');
+        }
+
+        function restoreCall() {
+            if (callState.phase !== 'active') return;
+            document.getElementById('call-mini').classList.remove('active');
+            document.getElementById('call-active-overlay').classList.add('active');
+        }
+
+        function endCall() {
+            stopRingTone();
+            if (callState.timer) { clearInterval(callState.timer); callState.timer = null; }
+            const wasActive = callState.phase === 'active';
+            const t = wasActive ? Math.floor((Date.now() - callState.startTime) / 1000) : 0;
+            callState.phase = 'idle';
+            callState.mute = false;
+            document.getElementById('call-incoming-overlay').classList.remove('active');
+            document.getElementById('call-outgoing-overlay').classList.remove('active');
+            document.getElementById('call-active-overlay').classList.remove('active');
+            document.getElementById('call-mini').classList.remove('active');
+            document.getElementById('call-mute-btn').classList.remove('toggled');
+            document.getElementById('call-mute-btn').querySelector('i').className = 'fas fa-microphone';
+            if (wasActive) {
+                const duration = String(Math.floor(t / 60)).padStart(2, '0') + ':' + String(t % 60).padStart(2, '0');
+                addMessage({ id: Date.now(), sender: 'system', text: `通话已结束，时长 ${duration}`, timestamp: new Date(), type: 'system' });
+                showNotification('通话已结束', 'info');
+            }
+        }
+
+        function updateCallStatusUI() {
+            const status = document.getElementById('call-active-status');
+            const switchIcon = document.getElementById('call-switch-btn').querySelector('i');
+            const videoBg = document.getElementById('call-video-bg');
+            if (callState.mode === 'video') {
+                status.textContent = '视频通话中';
+                switchIcon.className = 'fas fa-video-slash';
+                if (videoBg) videoBg.classList.add('active');
+            } else {
+                status.textContent = '语音通话中';
+                switchIcon.className = 'fas fa-video';
+                if (videoBg) videoBg.classList.remove('active');
+            }
+        }
+
+        function toggleCallMode() {
+            if (callState.phase !== 'active') return;
+            callState.mode = callState.mode === 'video' ? 'audio' : 'video';
+            updateCallStatusUI();
+        }
+
+        function toggleCallMute() {
+            if (callState.phase !== 'active') return;
+            callState.mute = !callState.mute;
+            document.getElementById('call-mute-btn').classList.toggle('toggled', callState.mute);
+            document.getElementById('call-mute-btn').querySelector('i').className = callState.mute ? 'fas fa-microphone-slash' : 'fas fa-microphone';
+        }
+
+        document.getElementById('call-accept-btn').addEventListener('click', acceptCall);
+        document.getElementById('call-decline-btn').addEventListener('click', declineCall);
+        document.getElementById('call-hangup-btn').addEventListener('click', endCall);
+        document.getElementById('call-minimize-btn').addEventListener('click', minimizeCall);
+        document.getElementById('call-mini').addEventListener('click', restoreCall);
+        document.getElementById('call-switch-btn').addEventListener('click', toggleCallMode);
+        document.getElementById('call-mute-btn').addEventListener('click', toggleCallMute);
+        document.getElementById('call-cancel-btn').addEventListener('click', cancelOutgoingCall);
+        document.getElementById('call-btn').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const menu = document.getElementById('call-out-menu');
+            if (menu) menu.classList.toggle('active');
+        });
+        document.getElementById('call-out-audio').addEventListener('click', () => {
+            document.getElementById('call-out-menu').classList.remove('active');
+            initiateOutgoingCall('audio');
+        });
+        document.getElementById('call-out-video').addEventListener('click', () => {
+            document.getElementById('call-out-menu').classList.remove('active');
+            initiateOutgoingCall('video');
+        });
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('call-out-menu');
+            if (menu && menu.classList.contains('active') && !menu.contains(e.target) && e.target.id !== 'call-btn') {
+                menu.classList.remove('active');
+            }
+        });
+        window.initiatePartnerCall = initiatePartnerCall;
+        window.initiateOutgoingCall = initiateOutgoingCall;
 
 
         function startCoinFlipAnimation() {
@@ -13852,17 +14225,23 @@ function saveEnvelopeAutoConfig() {
 
 function generateAutoLetterContent() {
     const allStickers = [...(myStickerLibrary || []), ...(stickerLibrary || [])];
-    const sentenceCount = Math.floor(Math.random() * 4) + 3;
+    const sourcePool = Array.isArray(customReplies) ? customReplies.filter(t => typeof t === 'string' && t.trim()) : [];
+    const sentenceCount = Math.min(Math.floor(Math.random() * 4) + 3, Math.max(sourcePool.length, 1));
     let content = '';
     const usedIndices = new Set();
     
     for (let i = 0; i < sentenceCount; i++) {
         let idx;
-        do {
+        if (sourcePool.length > 0) {
+            do {
+                idx = Math.floor(Math.random() * sourcePool.length);
+            } while (usedIndices.has(idx) && usedIndices.size < sourcePool.length);
+            usedIndices.add(idx);
+            content += sourcePool[idx];
+        } else {
             idx = Math.floor(Math.random() * AUTO_LETTER_TEMPLATES.length);
-        } while (usedIndices.has(idx) && usedIndices.size < AUTO_LETTER_TEMPLATES.length);
-        usedIndices.add(idx);
-        content += AUTO_LETTER_TEMPLATES[idx];
+            content += AUTO_LETTER_TEMPLATES[idx];
+        }
         if (i < sentenceCount - 1) content += '\n\n';
     }
     
@@ -14180,11 +14559,13 @@ function initMomentsModule() {
     loadMomentsData().then(() => {
         renderMomentsFeed();
         loadMomentsBanner();
+        loadMomentCommentPlans();
     });
 
     const momentsBtn = document.getElementById('moments-btn');
     if (momentsBtn) {
         momentsBtn.addEventListener('click', () => {
+            clearMomentsUnread();
             document.getElementById('moments-page').classList.add('active');
             renderMomentsFeed();
         });
@@ -14525,12 +14906,7 @@ function sendMomentComment(id) {
     renderMomentsFeed();
 
     if (moment.author === 'partner') {
-        const delay = 1000 + Math.random() * (24 * 3600 * 1000 - 1000);
-        setTimeout(() => {
-            moment.comments.push({ author: 'partner', text: randomReplyFromCardLibrary(), timestamp: new Date().toISOString() });
-            saveMomentsData();
-            renderMomentsFeed();
-        }, delay);
+        schedulePartnerCommentOnMoment(id);
     }
 }
 
@@ -14543,18 +14919,96 @@ function randomReplyFromCardLibrary() {
     return fallback[Math.floor(Math.random() * fallback.length)];
 }
 
+const MOMENT_COMMENT_PLAN_KEY = 'CHAT_APP_MOMENT_COMMENT_PLANS';
+let momentCommentCheckerTimer = null;
+
+function getMomentCommentPlan() {
+    try {
+        const raw = localStorage.getItem(MOMENT_COMMENT_PLAN_KEY);
+        if (raw) return JSON.parse(raw) || {};
+    } catch (e) {}
+    return {};
+}
+
+function saveMomentCommentPlan(plans) {
+    try {
+        localStorage.setItem(MOMENT_COMMENT_PLAN_KEY, JSON.stringify(plans));
+    } catch (e) {}
+}
+
+function getMomentCommentDelay() {
+    let min = parseInt(settings.momentCommentMin, 10);
+    if (isNaN(min) || min < 1) min = 5;
+    let max = parseInt(settings.momentCommentMax, 10);
+    if (isNaN(max) || max < 1) max = 60;
+    if (max < min) max = min;
+    return (min + Math.random() * (max - min)) * 1000;
+}
+
 function schedulePartnerCommentOnMoment(momentId) {
-    const delay = 1000 + Math.random() * (24 * 3600 * 1000 - 1000);
-    setTimeout(() => {
-        const moment = momentsData.find(m => m.id === momentId);
-        if (!moment) return;
-        if (!moment.comments) moment.comments = [];
-        moment.comments.push({ author: 'partner', text: randomReplyFromCardLibrary(), timestamp: new Date().toISOString() });
-        saveMomentsData();
-        renderMomentsFeed();
-        playSound('message');
-        showNotification('对方评论了你的朋友圈', 'success');
-    }, delay);
+    if (settings.momentCommentEnabled === false) return;
+    const plans = getMomentCommentPlan();
+    if (plans[momentId]) return;
+    plans[momentId] = Date.now() + getMomentCommentDelay();
+    saveMomentCommentPlan(plans);
+    startMomentCommentChecker();
+}
+
+function startMomentCommentChecker() {
+    if (momentCommentCheckerTimer) return;
+    momentCommentCheckerTimer = setInterval(checkMomentCommentPlans, 30000);
+}
+
+function checkMomentCommentPlans() {
+    if (settings.momentCommentEnabled === false) return;
+    const plans = getMomentCommentPlan();
+    const now = Date.now();
+    let changed = false;
+    Object.keys(plans).forEach(momentId => {
+        let at = plans[momentId];
+        if (at - now > getMomentCommentDelay()) {
+            at = now + getMomentCommentDelay();
+            plans[momentId] = at;
+            changed = true;
+        }
+        if (at <= now) {
+            const moment = momentsData.find(m => m.id === parseInt(momentId, 10));
+            if (!moment) return;
+            delete plans[momentId];
+            changed = true;
+            if (!moment.comments) moment.comments = [];
+            moment.comments.push({ author: 'partner', text: randomReplyFromCardLibrary(), timestamp: new Date().toISOString() });
+            saveMomentsData();
+            renderMomentsFeed();
+            playSound('message');
+            showNotification('对方评论了你的朋友圈', 'success');
+        }
+    });
+    if (changed) saveMomentCommentPlan(plans);
+}
+
+function loadMomentCommentPlans() {
+    const plans = getMomentCommentPlan();
+    const now = Date.now();
+    let hasPending = false;
+    Object.keys(plans).forEach(k => {
+        if (plans[k] > now) hasPending = true;
+    });
+    if (hasPending) startMomentCommentChecker();
+    checkMomentCommentPlans();
+}
+
+function toggleMomentComment() {
+    settings.momentCommentEnabled = settings.momentCommentEnabled === false;
+    const el = document.getElementById('moment-comment-toggle');
+    if (el) el.classList.toggle('active', settings.momentCommentEnabled !== false);
+    throttledSaveData();
+    if (settings.momentCommentEnabled) {
+        startMomentCommentChecker();
+    } else {
+        saveMomentCommentPlan({});
+    }
+    showNotification(settings.momentCommentEnabled ? '已开启对方评论我的朋友圈' : '已关闭对方评论我的朋友圈', 'success');
 }
 
 function deleteMoment(id) {
@@ -14581,9 +15035,31 @@ function partnerRandomPostMoment() {
     };
     momentsData.unshift(moment);
     saveMomentsData();
-    if (document.getElementById('moments-page').classList.contains('active')) {
+    const momentsPageActive = document.getElementById('moments-page').classList.contains('active');
+    if (momentsPageActive) {
         renderMomentsFeed();
+    } else {
+        markMomentsUnread();
+        playSound('message');
+        showNotification('对方发了一条朋友圈', 'info');
     }
+}
+
+function markMomentsUnread() {
+    const btn = document.getElementById('moments-btn');
+    if (!btn) return;
+    if (btn.querySelector('.moments-unread-dot')) return;
+    const dot = document.createElement('span');
+    dot.className = 'moments-unread-dot';
+    dot.style.cssText = 'position:absolute;top:4px;right:4px;width:9px;height:9px;border-radius:50%;background:#ff4d4f;border:2px solid #fff;';
+    btn.style.position = 'relative';
+    btn.appendChild(dot);
+}
+function clearMomentsUnread() {
+    const btn = document.getElementById('moments-btn');
+    if (!btn) return;
+    const dot = btn.querySelector('.moments-unread-dot');
+    if (dot) dot.remove();
 }
 
 function getNextMomentDelay() {
@@ -14593,14 +15069,33 @@ function getNextMomentDelay() {
     const hi = Math.max(min, max);
     return (lo + Math.random() * (hi - lo)) * 3600000;
 }
-let nextPartnerMomentAt = Date.now() + getNextMomentDelay();
-setInterval(() => {
+let nextPartnerMomentAt = 0;
+function saveNextPartnerMomentAt() {
+    try { localStorage.setItem('CHAT_APP_MOMENT_NEXT_AT', String(nextPartnerMomentAt)); } catch (e) {}
+}
+function loadNextPartnerMomentAt() {
+    const saved = parseInt(localStorage.getItem('CHAT_APP_MOMENT_NEXT_AT') || '0', 10);
+    if (saved > 0) {
+        nextPartnerMomentAt = saved;
+    } else {
+        nextPartnerMomentAt = Date.now() + getNextMomentDelay();
+        saveNextPartnerMomentAt();
+    }
+}
+function checkPartnerMomentPost() {
     if (typeof settings === 'undefined' || !settings || settings.momentIntervalEnabled === false) return;
     if (Date.now() >= nextPartnerMomentAt) {
         partnerRandomPostMoment();
         nextPartnerMomentAt = Date.now() + getNextMomentDelay();
+        saveNextPartnerMomentAt();
     }
-}, 60000);
+}
+loadNextPartnerMomentAt();
+checkPartnerMomentPost();
+setInterval(checkPartnerMomentPost, 30000);
+document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) checkPartnerMomentPost();
+});
 
 /* ===== 快捷背景按钮 ===== */
 function initQuickBgBtn() {
@@ -15801,6 +16296,12 @@ document.getElementById('chat-settings').addEventListener('click', () => {
     if (miMaxEl) miMaxEl.value = settings.momentIntervalMax || 24;
     const miToggleEl = document.getElementById('moment-interval-toggle');
     if (miToggleEl) miToggleEl.classList.toggle('active', settings.momentIntervalEnabled !== false);
+    const mcMinEl = document.getElementById('moment-comment-min');
+    if (mcMinEl) mcMinEl.value = settings.momentCommentMin || 5;
+    const mcMaxEl = document.getElementById('moment-comment-max');
+    if (mcMaxEl) mcMaxEl.value = settings.momentCommentMax || 60;
+    const mcToggleEl = document.getElementById('moment-comment-toggle');
+    if (mcToggleEl) mcToggleEl.classList.toggle('active', settings.momentCommentEnabled !== false);
     const autoToggle = document.getElementById('auto-send-toggle');
     if (autoToggle) autoToggle.classList.toggle('active', !!settings.autoSendEnabled);
     updateAutoSendUI();
@@ -16271,6 +16772,35 @@ document.getElementById('chat-settings').addEventListener('click', () => {
             if (miToggleEl2) {
                 miToggleEl2.classList.toggle('active', settings.momentIntervalEnabled !== false);
                 miToggleEl2.addEventListener('click', toggleMomentInterval);
+            }
+            const mcMinEl2 = document.getElementById('moment-comment-min');
+            const mcMaxEl2 = document.getElementById('moment-comment-max');
+            if (mcMinEl2) {
+                mcMinEl2.value = settings.momentCommentMin || 5;
+                mcMinEl2.addEventListener('change', () => {
+                    let v = parseInt(mcMinEl2.value, 10);
+                    if (isNaN(v) || v < 1) v = 1;
+                    if (v > 600) v = 600;
+                    settings.momentCommentMin = v;
+                    throttledSaveData();
+                    showNotification('评论时间区间已更新', 'success');
+                });
+            }
+            if (mcMaxEl2) {
+                mcMaxEl2.value = settings.momentCommentMax || 60;
+                mcMaxEl2.addEventListener('change', () => {
+                    let v = parseInt(mcMaxEl2.value, 10);
+                    if (isNaN(v) || v < 1) v = 1;
+                    if (v > 600) v = 600;
+                    settings.momentCommentMax = v;
+                    throttledSaveData();
+                    showNotification('评论时间区间已更新', 'success');
+                });
+            }
+            const mcToggleEl2 = document.getElementById('moment-comment-toggle');
+            if (mcToggleEl2) {
+                mcToggleEl2.classList.toggle('active', settings.momentCommentEnabled !== false);
+                mcToggleEl2.addEventListener('click', toggleMomentComment);
             }
 
 
