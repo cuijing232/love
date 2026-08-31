@@ -5025,22 +5025,6 @@
             border-radius: 50%;
             flex-shrink: 0;
         }
-        /* 朋友圈时间弹窗 */
-        #moment-time-modal .modal-content {
-            max-width: 360px;
-            border-radius: 20px;
-        }
-        .moment-time-modal-sub {
-            font-size: 12px;
-            color: var(--text-secondary);
-            margin: -8px 0 14px;
-        }
-        .moment-time-modal-opts {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 16px;
-        }
         /* 通用确认弹窗 */
         #confirm-modal .modal-content {
             max-width: 360px;
@@ -5204,50 +5188,6 @@
             padding: 2px 0 6px;
         }
 
-        /* ===== 朋友圈时间设置 ===== */
-        #moment-time-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-        }
-        #moment-time-options .settings-item.moment-time-opt {
-            justify-content: center;
-        }
-        #moment-time-options .settings-item.moment-time-opt.full {
-            grid-column: 1 / -1;
-        }
-
-        .moment-interval-row {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex-wrap: wrap;
-            padding: 10px 12px;
-            background: var(--bg-secondary, rgba(255,255,255,0.06));
-            border: 1px solid var(--border-color, rgba(255,255,255,0.12));
-            border-radius: 12px;
-            margin-bottom: 10px;
-            font-size: 13px;
-        }
-        .moment-interval-label {
-            color: var(--text-secondary);
-            white-space: nowrap;
-        }
-        .moment-interval-input {
-            width: 64px;
-            padding: 6px 8px;
-            border: 1px solid var(--border-color, rgba(255,255,255,0.2));
-            border-radius: 8px;
-            background: var(--bg-input, rgba(255,255,255,0.08));
-            color: var(--text-primary, #fff);
-            font-size: 14px;
-            text-align: center;
-            outline: none;
-            font-family: var(--font-family, inherit);
-        }
-        .moment-interval-input:focus {
-            border-color: var(--accent-color);
-        }
 
         #custom-replies-modal .modal-buttons {
     position: absolute;
@@ -8568,184 +8508,6 @@
             display: flex; align-items: center; gap: 6px;
         }
 
-        /* ===== 朋友圈 ===== */
-        .moments-page {
-            position: fixed; inset: 0; z-index: 5000; background: var(--primary-bg);
-            display: none; flex-direction: column; overflow: hidden;
-        }
-        .moments-page.active { display: flex; animation: momentsFadeIn 0.3s ease; }
-        @keyframes momentsFadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        .moments-header {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 12px 16px; background: var(--header-bg);
-            border-bottom: 1px solid var(--border-color); flex-shrink: 0;
-            box-shadow: var(--shadow); z-index: 2;
-        }
-        .moments-header-back {
-            background: none; border: none; cursor: pointer; font-size: 20px;
-            color: var(--text-secondary); padding: 6px;
-        }
-        .moments-header-title {
-            font-size: 16px; font-weight: 600; font-family: var(--font-family);
-            color: var(--text-primary);
-        }
-        .moments-header-camera {
-            background: none; border: none; cursor: pointer; font-size: 18px;
-            color: var(--accent-color); padding: 6px;
-        }
-        .moments-banner {
-            height: 200px; position: relative; overflow: hidden; flex-shrink: 0;
-            background: linear-gradient(135deg, rgba(var(--accent-color-rgb),0.3), rgba(var(--accent-color-rgb),0.1));
-        }
-        .moments-banner-img {
-            width: 100%; height: 100%; object-fit: cover;
-        }
-        .moments-banner-placeholder {
-            width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;
-            font-size: 40px; color: rgba(var(--accent-color-rgb), 0.4);
-        }
-        .moments-feed {
-            flex: 1; overflow-y: auto; padding: 0 0 80px;
-        }
-        .moment-card {
-            background: var(--secondary-bg); margin: 12px 16px; border-radius: 14px;
-            padding: 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.04);
-        }
-        .moment-card-header {
-            display: flex; align-items: center; gap: 10px; margin-bottom: 10px;
-        }
-        .moment-avatar {
-            width: 40px; height: 40px; border-radius: 50%; overflow: hidden;
-            background: var(--primary-bg); display: flex; align-items: center; justify-content: center;
-            flex-shrink: 0;
-        }
-        .moment-avatar img { width: 100%; height: 100%; object-fit: cover; }
-        .moment-avatar i { font-size: 18px; color: var(--text-secondary); }
-        .moment-author {
-            font-size: 14px; font-weight: 600; color: var(--accent-color);
-        }
-        .moment-time {
-            font-size: 11px; color: var(--text-secondary); margin-top: 2px;
-        }
-        .moment-text {
-            font-size: 14px; line-height: 1.6; color: var(--text-primary);
-            margin-bottom: 10px; word-break: break-word; white-space: pre-wrap;
-        }
-        .moment-images {
-            display: grid; gap: 6px; margin-bottom: 10px;
-        }
-        .moment-images.cols-1 { grid-template-columns: 1fr; }
-        .moment-images.cols-2 { grid-template-columns: 1fr 1fr; }
-        .moment-images.cols-3 { grid-template-columns: 1fr 1fr 1fr; }
-        .moment-img-wrap {
-            border-radius: 8px; overflow: hidden; cursor: pointer;
-        }
-        .moment-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        .moment-img-wrap.cols-1 img { max-height: 300px; }
-        .moment-img-wrap.cols-2 img, .moment-img-wrap.cols-3 img { height: 110px; }
-        .moment-sticker {
-            max-width: 150px; border-radius: 8px; margin-bottom: 10px;
-        }
-        .moment-actions {
-            display: flex; gap: 20px; padding-top: 8px;
-            border-top: 1px solid var(--border-color);
-        }
-        .moment-action-btn {
-            background: none; border: none; cursor: pointer; font-size: 12px;
-            color: var(--text-secondary); display: flex; align-items: center; gap: 4px;
-            font-family: var(--font-family); transition: color 0.2s;
-        }
-        .moment-action-btn:hover { color: var(--accent-color); }
-        .moment-action-btn.liked { color: var(--accent-color); }
-        .moment-comments {
-            margin-top: 10px; background: var(--primary-bg); border-radius: 8px;
-            padding: 8px 12px;
-        }
-        .moment-comment {
-            font-size: 13px; line-height: 1.5; margin-bottom: 6px;
-            color: var(--text-primary);
-        }
-        .moment-comment:last-child { margin-bottom: 0; }
-        .moment-comment-author {
-            font-weight: 600; color: var(--accent-color); margin-right: 6px;
-        }
-        .moment-comment-input-row {
-            display: flex; gap: 8px; margin-top: 8px;
-        }
-        .moment-comment-input {
-            flex: 1; padding: 8px 12px; border: 1px solid var(--border-color);
-            border-radius: 8px; font-size: 13px; font-family: var(--font-family);
-            background: var(--secondary-bg); color: var(--text-primary);
-        }
-        .moment-comment-input:focus { border-color: var(--accent-color); outline: none; }
-        .moment-comment-send {
-            padding: 8px 14px; border: none; border-radius: 8px; cursor: pointer;
-            background: var(--accent-color); color: #fff; font-size: 12px; font-weight: 600;
-            font-family: var(--font-family);
-        }
-        .moments-post-bar {
-            position: absolute; bottom: 0; left: 0; right: 0;
-            background: var(--input-area-bg); border-top: 1px solid var(--border-color);
-            padding: 12px 16px; display: flex; gap: 8px; align-items: flex-end;
-            padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));
-            z-index: 3;
-        }
-        .moments-post-text {
-            flex: 1; padding: 10px 14px; border: 1.5px solid var(--border-color);
-            border-radius: 10px; font-size: 14px; font-family: var(--font-family);
-            background: var(--primary-bg); color: var(--text-primary); resize: none;
-            min-height: 42px; max-height: 100px;
-        }
-        .moments-post-text:focus { border-color: var(--accent-color); outline: none; }
-        .moments-post-img-btn {
-            width: 42px; height: 42px; border: 1.5px solid var(--border-color);
-            border-radius: 10px; background: var(--primary-bg); cursor: pointer;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--text-secondary); font-size: 18px; flex-shrink: 0;
-        }
-        .moments-post-img-btn:hover { border-color: var(--accent-color); color: var(--accent-color); }
-        .moments-post-send-btn {
-            padding: 10px 18px; border: none; border-radius: 10px; cursor: pointer;
-            background: var(--accent-color); color: #fff; font-size: 14px; font-weight: 600;
-            font-family: var(--font-family); flex-shrink: 0;
-        }
-        .moments-post-preview {
-            position: absolute; bottom: 70px; left: 16px; right: 16px;
-            background: var(--secondary-bg); border: 1px solid var(--border-color);
-            border-radius: 10px; padding: 8px; display: none; gap: 8px;
-        }
-        .moments-post-preview.active { display: flex; }
-        .moments-post-preview-img {
-            width: 60px; height: 60px; border-radius: 8px; object-fit: cover;
-        }
-        .moments-post-preview-remove {
-            position: absolute; top: -6px; right: -6px; width: 20px; height: 20px;
-            border-radius: 50%; background: #ff4757; color: #fff; border: none;
-            cursor: pointer; font-size: 10px; display: flex; align-items: center; justify-content: center;
-        }
-        .moments-sticker-picker {
-            position: absolute; bottom: 70px; left: 0; right: 0;
-            background: var(--secondary-bg); border-top: 1px solid var(--border-color);
-            max-height: 300px; overflow-y: auto; padding: 12px; display: none;
-        }
-        .moments-sticker-picker.active { display: block; }
-        .moments-sticker-picker-title {
-            font-size: 12px; font-weight: 600; color: var(--text-secondary);
-            margin-bottom: 8px; letter-spacing: 0.5px;
-        }
-        .moments-sticker-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
-        }
-        .moments-sticker-grid img {
-            width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .moments-sticker-grid img:hover { transform: scale(1.05); }
-        .moments-empty {
-            text-align: center; padding: 60px 20px; color: var(--text-secondary);
-        }
-        .moments-empty i { font-size: 48px; opacity: 0.3; margin-bottom: 12px; display: block; }
-        .moments-empty p { font-size: 14px; }
 
         /* ===== 快捷背景按钮 ===== */
         .quick-bg-btn {
@@ -8970,7 +8732,6 @@
                 </div>
             </div>
             <div class="header-actions">
-                <button id="moments-btn" class="action-btn" title="朋友圈"><i class="fas fa-camera"></i></button>
                 <button id="session-manager-btn" class="action-btn" title="会话管理"><i class="fas fa-comments"></i></button>
                 <button id="group-chat-btn" class="action-btn" title="群聊设置"><i class="fas fa-users"></i></button>
                 <button id="daily-greeting-btn" class="action-btn" title="今日公告" onclick="reopenDailyGreeting()"><i class="fas fa-newspaper"></i></button>
@@ -9918,48 +9679,6 @@
 
             <div class="settings-section">
                 <div class="settings-section-title">
-                    <i class="fas fa-paper-plane"></i>对方发朋友圈时间
-                </div>
-                <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">对方在区间内随机时间自动发一条朋友圈</div>
-                <div class="moment-interval-row">
-                    <span class="moment-interval-label">最小</span>
-                    <input type="number" class="moment-interval-input" id="moment-interval-min" min="1" max="24" value="1">
-                    <span>小时</span>
-                    <span style="margin:0 6px;color:var(--text-secondary);">~</span>
-                    <span class="moment-interval-label">最大</span>
-                    <input type="number" class="moment-interval-input" id="moment-interval-max" min="1" max="24" value="24">
-                    <span>小时</span>
-                </div>
-                <div class="setting-pill-row" id="moment-interval-toggle" onclick="toggleMomentInterval()">
-                    <span class="setting-pill-icon"><i class="fas fa-paper-plane"></i></span>
-                    <span class="setting-pill-label">自动发朋友圈</span>
-                    <div class="setting-pill-switch"><div class="setting-pill-knob"></div></div>
-                </div>
-            </div>
-
-            <div class="settings-section">
-                <div class="settings-section-title">
-                    <i class="fas fa-comment-dots"></i>对方评论朋友圈时间
-                </div>
-                <div style="font-size:12px;color:var(--text-secondary);margin-bottom:8px;">你发朋友圈后，对方在区间内随机时间评论</div>
-                <div class="moment-interval-row">
-                    <span class="moment-interval-label">最小</span>
-                    <input type="number" class="moment-interval-input" id="moment-comment-min" min="1" max="600" value="5">
-                    <span>秒</span>
-                    <span style="margin:0 6px;color:var(--text-secondary);">~</span>
-                    <span class="moment-interval-label">最大</span>
-                    <input type="number" class="moment-interval-input" id="moment-comment-max" min="1" max="600" value="60">
-                    <span>秒</span>
-                </div>
-                <div class="setting-pill-row" id="moment-comment-toggle" onclick="toggleMomentComment()">
-                    <span class="setting-pill-icon"><i class="fas fa-comment-dots"></i></span>
-                    <span class="setting-pill-label">对方评论我的朋友圈</span>
-                    <div class="setting-pill-switch"><div class="setting-pill-knob"></div></div>
-                </div>
-            </div>
-
-            <div class="settings-section">
-                <div class="settings-section-title">
                     <i class="fas fa-expand"></i>沉浸式聊天
                 </div>
                 <div class="setting-pill-row" id="immersive-toggle" onclick="toggleImmersiveMode()">
@@ -10341,31 +10060,6 @@
         </div>
     </div>
 
-    <div class="modal" id="moment-time-modal">
-        <div class="modal-content">
-            <div class="modal-title">
-                <i class="fas fa-paper-plane"></i> 对方发朋友圈时间
-            </div>
-            <div class="moment-time-modal-sub">对方在区间内随机时间自动发一条朋友圈</div>
-            <div class="moment-interval-row" style="justify-content:center;">
-                <span class="moment-interval-label">最小</span>
-                <input type="number" class="moment-interval-input" id="moment-time-min" min="1" max="24" value="1">
-                <span>小时</span>
-                <span style="margin:0 6px;color:var(--text-secondary);">~</span>
-                <span class="moment-interval-label">最大</span>
-                <input type="number" class="moment-interval-input" id="moment-time-max" min="1" max="24" value="24">
-                <span>小时</span>
-            </div>
-            <div class="setting-pill-row" id="moment-time-toggle" onclick="toggleMomentInterval()">
-                <span class="setting-pill-icon"><i class="fas fa-paper-plane"></i></span>
-                <span class="setting-pill-label">自动发朋友圈</span>
-                <div class="setting-pill-switch"><div class="setting-pill-knob"></div></div>
-            </div>
-            <div class="modal-buttons">
-                <button class="modal-btn modal-btn-primary" id="moment-time-ok">完成</button>
-            </div>
-        </div>
-    </div>
 
     <div class="modal" id="confirm-modal">
         <div class="modal-content">
@@ -11699,13 +11393,6 @@ autoSendInterval: 5,
         allowReadNoReply: false, 
         readNoReplyChance: 0.2,
         timeFormat: 'HH:mm',
-        momentTimeMode: 'auto',
-        momentIntervalEnabled: true,
-        momentIntervalMin: 1,
-        momentIntervalMax: 24,
-        momentCommentEnabled: true,
-        momentCommentMin: 5,
-        momentCommentMax: 60,
         customSoundUrl: '',
         soundVolume: 0.15
             };
@@ -11822,8 +11509,6 @@ const loadData = async () => {
             localforage.getItem(getStorageKey('showPartnerNameInChat')),
             localforage.getItem(`${APP_PREFIX}themeSchemes`),
             localforage.getItem(getStorageKey('myStickerLibrary')),
-            localforage.getItem(getStorageKey('momentsData')),
-            localforage.getItem(getStorageKey('momentsBanner'))
         ]);
         const getVal = (index) => results[index].status === 'fulfilled' ? results[index].value : null;
 
@@ -11846,8 +11531,6 @@ const loadData = async () => {
         const savedShowNameConfig = getVal(16);
         const savedThemeSchemes = getVal(17);
         const savedMyStickers = getVal(18);
-        const savedMomentsData = getVal(19);
-        const savedMomentsBanner = getVal(20);
 
         if (savedPartnerPersonas) partnerPersonas = savedPartnerPersonas; 
 
@@ -11946,8 +11629,6 @@ const loadData = async () => {
 
         try { await loadEnvelopeData(); } catch(e) { console.warn("信封数据加载失败", e); }
         try { await loadEnvelopeAutoConfig(); } catch(e) { console.warn("自动来信配置加载失败", e); }
-        if (savedMomentsData && Array.isArray(savedMomentsData)) momentsData = savedMomentsData;
-        if (savedMomentsBanner) momentsBannerImage = savedMomentsBanner;
         try { await _restoreDgFromForage(); } catch(e) { console.warn("装扮备份恢复失败", e); }
         try { _reapplyDgFromStorage(); } catch(e) { console.warn("装扮重新应用失败", e); }
         
@@ -12137,8 +11818,6 @@ const saveData = async () => {
         { key: 'chatMessages',           val: () => localforage.setItem(getStorageKey('chatMessages'), messages),                raw: () => messages },
         { key: 'envelopeData',           val: () => localforage.setItem(getStorageKey('envelopeData'), envelopeData),            raw: () => envelopeData },
         { key: 'envelopeAutoConfig',     val: () => localforage.setItem(getStorageKey('envelopeAutoConfig'), envelopeAutoConfig), raw: () => envelopeAutoConfig },
-        { key: 'momentsData',            val: () => localforage.setItem(getMomentsStorageKey(), momentsData),                    raw: () => momentsData },
-        { key: 'momentsBanner',          val: () => localforage.setItem(getStorageKey('momentsBanner'), momentsBannerImage),     raw: () => momentsBannerImage },
         { key: 'dgBackup',               val: () => _backupDgToForage() },
     ];
 
@@ -12993,7 +12672,6 @@ addMessage({
     replyTo,
     type: 'normal'
 });
-maybeRecallPartnerMessage(partnerMsgId);
                     playSound('message');
                     if (document.hidden && 'Notification' in window && Notification.permission === 'granted') {
                         const notifTitle = settings.partnerName || '对方';
@@ -13019,18 +12697,6 @@ maybeRecallPartnerMessage(partnerMsgId);
             }
         }
 
-        function maybeRecallPartnerMessage(msgId) {
-            if (Math.random() >= 0.12) return;
-            const delay = 3000 + Math.random() * 12000;
-            setTimeout(() => {
-                const msg = messages.find(m => m.id === msgId);
-                if (!msg || msg.recalled) return;
-                msg.recalled = true;
-                renderMessages(false);
-                throttledSaveData();
-                showNotification('对方撤回了一条消息', 'info');
-            }, delay);
-        }
 
         /* ===== 语音视频通话 ===== */
         const callState = { phase: 'idle', mode: 'audio', startTime: 0, timer: null, ringTimer: null, audioCtx: null, mute: false };
@@ -14556,7 +14222,6 @@ function setupEventListeners() {
         
         initComboMenu(); 
         
-        initMomentsModule();
         initQuickBgBtn();
         initEnvelopeAutoLetter();
         
@@ -14719,548 +14384,6 @@ function escapeHtml(text) {
     return div.innerHTML;
 }
 
-/* ===== 朋友圈模块 ===== */
-let momentsData = [];
-let momentsPostImage = null;
-let momentsBannerImage = null;
-let momentsStickerPickerActive = false;
-
-const MOMENTS_PARTNER_TEXTS = [
-    '今天天气真好，心情不错~',
-    '突然好想你呀',
-    '分享一张今天的随手拍',
-    '又是元气满满的一天',
-    '今天吃了好吃的，开心',
-    '晚安，好梦',
-    '在看书，觉得很平静',
-    '今天的云好好看',
-    '想你啦，你在干嘛呢',
-    '今天遇到了一件有趣的事',
-    '这首歌好好听，推荐给你',
-    '散步的时候拍了张照片',
-    '今天学做了新菜，还算成功',
-    '窗外下起了雨，有点想你',
-    '忙碌的一天终于结束了'
-];
-
-function getMomentsStorageKey() {
-    return getStorageKey('momentsData');
-}
-
-function saveMomentsData() {
-    localforage.setItem(getMomentsStorageKey(), momentsData);
-}
-
-async function loadMomentsData() {
-    try {
-        const saved = await localforage.getItem(getMomentsStorageKey());
-        if (saved && Array.isArray(saved)) {
-            momentsData = saved;
-        }
-    } catch (e) {
-        console.error('加载朋友圈数据失败:', e);
-    }
-}
-
-function initMomentsModule() {
-    loadMomentsData().then(() => {
-        renderMomentsFeed();
-        loadMomentsBanner();
-        loadMomentCommentPlans();
-    });
-
-    const momentsBtn = document.getElementById('moments-btn');
-    if (momentsBtn) {
-        momentsBtn.addEventListener('click', () => {
-            document.getElementById('moments-page').classList.add('active');
-            renderMomentsFeed();
-        });
-    }
-
-    const backBtn = document.getElementById('moments-back-btn');
-    if (backBtn) {
-        backBtn.addEventListener('click', () => {
-            document.getElementById('moments-page').classList.remove('active');
-            document.getElementById('moments-sticker-picker').classList.remove('active');
-            momentsStickerPickerActive = false;
-        });
-    }
-
-    const momentsBannerEl = document.getElementById('moments-banner');
-    if (momentsBannerEl) {
-        momentsBannerEl.addEventListener('click', () => {
-            document.getElementById('moments-banner-input').click();
-        });
-    }
-
-    const bannerInput = document.getElementById('moments-banner-input');
-    if (bannerInput) {
-        bannerInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            if (file.size > 10 * 1024 * 1024) { showNotification('图片不能超过10MB', 'error'); return; }
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                momentsBannerImage = ev.target.result;
-                localforage.setItem(getStorageKey('momentsBanner'), momentsBannerImage);
-                renderMomentsBanner();
-                showNotification('朋友圈封面已更换', 'success');
-            };
-            reader.readAsDataURL(file);
-            e.target.value = '';
-        });
-    }
-
-    const imgBtn = document.getElementById('moments-post-img-btn');
-    if (imgBtn) {
-        imgBtn.addEventListener('click', () => {
-            document.getElementById('moments-img-input').click();
-        });
-    }
-
-    const imgInput = document.getElementById('moments-img-input');
-    if (imgInput) {
-        imgInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (!file) return;
-            if (file.size > 5 * 1024 * 1024) { showNotification('图片不能超过5MB', 'error'); return; }
-            const reader = new FileReader();
-            reader.onload = (ev) => {
-                momentsPostImage = ev.target.result;
-                const preview = document.getElementById('moments-post-preview');
-                const previewImg = document.getElementById('moments-post-preview-img');
-                if (preview && previewImg) {
-                    previewImg.src = momentsPostImage;
-                    preview.classList.add('active');
-                }
-            };
-            reader.readAsDataURL(file);
-            e.target.value = '';
-        });
-    }
-
-    const previewRemove = document.getElementById('moments-post-preview-remove');
-    if (previewRemove) {
-        previewRemove.addEventListener('click', () => {
-            momentsPostImage = null;
-            document.getElementById('moments-post-preview').classList.remove('active');
-        });
-    }
-
-    const stickerBtn = document.getElementById('moments-post-sticker-btn');
-    if (stickerBtn) {
-        stickerBtn.addEventListener('click', () => {
-            const picker = document.getElementById('moments-sticker-picker');
-            momentsStickerPickerActive = !momentsStickerPickerActive;
-            picker.classList.toggle('active', momentsStickerPickerActive);
-            if (momentsStickerPickerActive) {
-                renderMomentsStickerGrid();
-            }
-        });
-    }
-
-    const sendBtn = document.getElementById('moments-post-send');
-    if (sendBtn) {
-        sendBtn.addEventListener('click', () => {
-            const textEl = document.getElementById('moments-post-text');
-            const text = textEl.value.trim();
-            if (!text && !momentsPostImage) {
-                showNotification('请输入内容或选择图片', 'warning');
-                return;
-            }
-            const moment = {
-                id: Date.now(),
-                author: 'user',
-                text: text,
-                image: momentsPostImage,
-                timestamp: new Date().toISOString(),
-                likes: [],
-                comments: []
-            };
-            momentsData.unshift(moment);
-            saveMomentsData();
-            schedulePartnerCommentOnMoment(moment.id);
-            textEl.value = '';
-            textEl.style.height = '42px';
-            momentsPostImage = null;
-            document.getElementById('moments-post-preview').classList.remove('active');
-            document.getElementById('moments-sticker-picker').classList.remove('active');
-            momentsStickerPickerActive = false;
-            renderMomentsFeed();
-            showNotification('已发表', 'success');
-        });
-    }
-}
-
-function loadMomentsBanner() {
-    localforage.getItem(getStorageKey('momentsBanner')).then(img => {
-        if (img) {
-            momentsBannerImage = img;
-            renderMomentsBanner();
-        } else if (momentsBannerImage) {
-            renderMomentsBanner();
-        }
-    });
-}
-
-function renderMomentsBanner() {
-    const banner = document.getElementById('moments-banner');
-    if (!banner) return;
-    if (momentsBannerImage) {
-        banner.innerHTML = `<img class="moments-banner-img" src="${momentsBannerImage}">`;
-    } else {
-        banner.innerHTML = `<div class="moments-banner-placeholder"><i class="fas fa-image"></i></div>`;
-    }
-}
-
-function renderMomentsStickerGrid() {
-    const grid = document.getElementById('moments-sticker-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
-    const allStickers = [...(myStickerLibrary || []), ...(stickerLibrary || [])];
-    if (allStickers.length === 0) {
-        grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:20px;font-size:12px;color:var(--text-secondary);">字卡库暂无内容，请先在聊天中添加表情</div>';
-        return;
-    }
-    allStickers.forEach(src => {
-        const img = document.createElement('img');
-        img.src = src;
-        img.loading = 'lazy';
-        img.addEventListener('click', () => {
-            const moment = {
-                id: Date.now(),
-                author: 'user',
-                text: '',
-                image: null,
-                sticker: src,
-                timestamp: new Date().toISOString(),
-                likes: [],
-                comments: []
-            };
-            momentsData.unshift(moment);
-            saveMomentsData();
-            document.getElementById('moments-sticker-picker').classList.remove('active');
-            momentsStickerPickerActive = false;
-            renderMomentsFeed();
-            showNotification('已发表字卡朋友圈', 'success');
-        });
-        grid.appendChild(img);
-    });
-}
-
-function renderMomentsFeed() {
-    const feed = document.getElementById('moments-feed');
-    if (!feed) return;
-    if (momentsData.length === 0) {
-        feed.innerHTML = `
-            <div class="moments-empty">
-                <i class="fas fa-camera-retro"></i>
-                <p>还没有朋友圈动态<br>快来发表第一条吧~</p>
-            </div>
-        `;
-        return;
-    }
-    feed.innerHTML = '';
-    const myName = settings.myName || '我';
-    const partnerName = settings.partnerName || '对方';
-    const myAvatarImg = DOMElements.me.avatar.querySelector('img');
-    const partnerAvatarImg = DOMElements.partner.avatar.querySelector('img');
-
-    momentsData.forEach(moment => {
-        const isUser = moment.author === 'user';
-        const authorName = isUser ? myName : partnerName;
-        const avatarHtml = isUser
-            ? (myAvatarImg ? `<img src="${myAvatarImg.src}">` : '<i class="fas fa-user"></i>')
-            : (partnerAvatarImg ? `<img src="${partnerAvatarImg.src}">` : '<i class="fas fa-user"></i>');
-
-        const card = document.createElement('div');
-        card.className = 'moment-card';
-
-        let imagesHtml = '';
-        if (moment.sticker) {
-            imagesHtml = `<img class="moment-sticker" src="${moment.sticker}" onclick="viewImage('${moment.sticker}')">`;
-        } else if (moment.image) {
-            imagesHtml = `<div class="moment-images cols-1"><div class="moment-img-wrap cols-1"><img src="${moment.image}" onclick="viewImage('${moment.image}')"></div></div>`;
-        }
-
-        const liked = moment.likes && moment.likes.includes('user');
-        const likeCount = moment.likes ? moment.likes.length : 0;
-
-        let commentsHtml = '';
-        if (moment.comments && moment.comments.length > 0) {
-            commentsHtml = '<div class="moment-comments">';
-            moment.comments.forEach(c => {
-                const cName = c.author === 'user' ? myName : partnerName;
-                commentsHtml += `<div class="moment-comment"><span class="moment-comment-author">${escapeHtml(cName)}:</span>${escapeHtml(c.text)}</div>`;
-            });
-            commentsHtml += '</div>';
-        }
-
-        const commentInputId = `moment-comment-input-${moment.id}`;
-
-        card.innerHTML = `
-            <div class="moment-card-header">
-                <div class="moment-avatar">${avatarHtml}</div>
-                <div>
-                    <div class="moment-author">${escapeHtml(authorName)}</div>
-                    <div class="moment-time">${formatMomentTime(moment.timestamp)}</div>
-                </div>
-            </div>
-            ${moment.text ? `<div class="moment-text">${escapeHtml(moment.text)}</div>` : ''}
-            ${imagesHtml}
-            <div class="moment-actions">
-                <button class="moment-action-btn ${liked ? 'liked' : ''}" data-action="like" data-id="${moment.id}">
-                    <i class="${liked ? 'fas' : 'far'} fa-heart"></i> ${likeCount > 0 ? likeCount : '赞'}
-                </button>
-                <button class="moment-action-btn" data-action="comment" data-id="${moment.id}">
-                    <i class="far fa-comment"></i> 评论
-                </button>
-                ${isUser ? `<button class="moment-action-btn" data-action="delete" data-id="${moment.id}"><i class="far fa-trash-alt"></i> 删除</button>` : ''}
-            </div>
-            ${commentsHtml}
-            <div class="moment-comment-input-row" id="comment-row-${moment.id}" style="display:none;">
-                <input type="text" class="moment-comment-input" id="${commentInputId}" placeholder="写评论..." data-id="${moment.id}">
-                <button class="moment-comment-send" data-id="${moment.id}">发送</button>
-            </div>
-        `;
-        feed.appendChild(card);
-    });
-
-    feed.querySelectorAll('.moment-action-btn').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const action = btn.dataset.action;
-            const id = parseInt(btn.dataset.id);
-            if (action === 'like') toggleMomentLike(id);
-            else if (action === 'comment') toggleCommentRow(id);
-            else if (action === 'delete') deleteMoment(id);
-        });
-    });
-
-    feed.querySelectorAll('.moment-comment-send').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            const id = parseInt(btn.dataset.id);
-            sendMomentComment(id);
-        });
-    });
-
-    feed.querySelectorAll('.moment-comment-input').forEach(inp => {
-        inp.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter') {
-                const id = parseInt(inp.dataset.id);
-                sendMomentComment(id);
-            }
-        });
-    });
-}
-
-function formatMomentTime(ts) {
-    const d = new Date(ts);
-    const now = new Date();
-    const diff = now - d;
-    const mode = (typeof settings !== 'undefined' && settings.momentTimeMode) ? settings.momentTimeMode : 'auto';
-    switch (mode) {
-        case 'just': return '刚刚';
-        case '5m': return '5分钟前';
-        case '30m': return '30分钟前';
-        case '1h': return '1小时前';
-        case '3h': return '3小时前';
-        case '1d': return '昨天';
-        case 'date': return d.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
-        case 'auto':
-        default:
-            if (diff < 60000) return '刚刚';
-            if (diff < 3600000) return Math.floor(diff / 60000) + '分钟前';
-            if (diff < 86400000) return Math.floor(diff / 3600000) + '小时前';
-            if (diff < 86400000 * 2) return '昨天';
-            return d.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
-    }
-}
-
-function toggleMomentLike(id) {
-    const moment = momentsData.find(m => m.id === id);
-    if (!moment) return;
-    if (!moment.likes) moment.likes = [];
-    const idx = moment.likes.indexOf('user');
-    if (idx >= 0) moment.likes.splice(idx, 1);
-    else moment.likes.push('user');
-    saveMomentsData();
-    renderMomentsFeed();
-}
-
-function toggleCommentRow(id) {
-    const row = document.getElementById(`comment-row-${id}`);
-    if (!row) return;
-    if (row.style.display === 'none') {
-        row.style.display = 'flex';
-        const input = document.getElementById(`moment-comment-input-${id}`);
-        if (input) setTimeout(() => input.focus(), 100);
-    } else {
-        row.style.display = 'none';
-    }
-}
-
-function sendMomentComment(id) {
-    const input = document.getElementById(`moment-comment-input-${id}`);
-    if (!input) return;
-    const text = input.value.trim();
-    if (!text) return;
-    const moment = momentsData.find(m => m.id === id);
-    if (!moment) return;
-    if (!moment.comments) moment.comments = [];
-    moment.comments.push({ author: 'user', text: text, timestamp: new Date().toISOString() });
-    saveMomentsData();
-    renderMomentsFeed();
-
-    if (moment.author === 'partner') {
-        schedulePartnerCommentOnMoment(id);
-    }
-}
-
-function randomReplyFromCardLibrary() {
-    const pool = Array.isArray(customReplies) ? customReplies.filter(t => typeof t === 'string' && t.trim()) : [];
-    if (pool.length > 0) {
-        return pool[Math.floor(Math.random() * pool.length)];
-    }
-    const fallback = ['嗯嗯~', '哈哈，是吧', '我也这么觉得', '嘿嘿', '是呀', '对呢', '收到啦~', '么么'];
-    return fallback[Math.floor(Math.random() * fallback.length)];
-}
-
-const MOMENT_COMMENT_PLAN_KEY = 'CHAT_APP_MOMENT_COMMENT_PLANS';
-let momentCommentCheckerTimer = null;
-
-function getMomentCommentPlan() {
-    try {
-        const raw = localStorage.getItem(MOMENT_COMMENT_PLAN_KEY);
-        if (raw) return JSON.parse(raw) || {};
-    } catch (e) {}
-    return {};
-}
-
-function saveMomentCommentPlan(plans) {
-    try {
-        localStorage.setItem(MOMENT_COMMENT_PLAN_KEY, JSON.stringify(plans));
-    } catch (e) {}
-}
-
-function getMomentCommentDelay() {
-    let min = parseInt(settings.momentCommentMin, 10);
-    if (isNaN(min) || min < 1) min = 5;
-    let max = parseInt(settings.momentCommentMax, 10);
-    if (isNaN(max) || max < 1) max = 60;
-    if (max < min) max = min;
-    return (min + Math.random() * (max - min)) * 1000;
-}
-
-function schedulePartnerCommentOnMoment(momentId) {
-    if (settings.momentCommentEnabled === false) return;
-    const plans = getMomentCommentPlan();
-    if (plans[momentId]) return;
-    plans[momentId] = Date.now() + getMomentCommentDelay();
-    saveMomentCommentPlan(plans);
-    startMomentCommentChecker();
-}
-
-function startMomentCommentChecker() {
-    if (momentCommentCheckerTimer) return;
-    momentCommentCheckerTimer = setInterval(checkMomentCommentPlans, 30000);
-}
-
-function checkMomentCommentPlans() {
-    if (settings.momentCommentEnabled === false) return;
-    const plans = getMomentCommentPlan();
-    const now = Date.now();
-    let changed = false;
-    Object.keys(plans).forEach(momentId => {
-        let at = plans[momentId];
-        if (at - now > getMomentCommentDelay()) {
-            at = now + getMomentCommentDelay();
-            plans[momentId] = at;
-            changed = true;
-        }
-        if (at <= now) {
-            const moment = momentsData.find(m => m.id === parseInt(momentId, 10));
-            if (!moment) return;
-            delete plans[momentId];
-            changed = true;
-            if (!moment.comments) moment.comments = [];
-            moment.comments.push({ author: 'partner', text: randomReplyFromCardLibrary(), timestamp: new Date().toISOString() });
-            saveMomentsData();
-            renderMomentsFeed();
-            playSound('message');
-            showNotification('对方评论了你的朋友圈', 'success');
-        }
-    });
-    if (changed) saveMomentCommentPlan(plans);
-}
-
-function loadMomentCommentPlans() {
-    const plans = getMomentCommentPlan();
-    const now = Date.now();
-    let hasPending = false;
-    Object.keys(plans).forEach(k => {
-        if (plans[k] > now) hasPending = true;
-    });
-    if (hasPending) startMomentCommentChecker();
-    checkMomentCommentPlans();
-}
-
-function toggleMomentComment() {
-    settings.momentCommentEnabled = settings.momentCommentEnabled === false;
-    const el = document.getElementById('moment-comment-toggle');
-    if (el) el.classList.toggle('active', settings.momentCommentEnabled !== false);
-    throttledSaveData();
-    if (settings.momentCommentEnabled) {
-        startMomentCommentChecker();
-    } else {
-        saveMomentCommentPlan({});
-    }
-    showNotification(settings.momentCommentEnabled ? '已开启对方评论我的朋友圈' : '已关闭对方评论我的朋友圈', 'success');
-}
-
-function deleteMoment(id) {
-    if (!confirm('确定删除这条朋友圈吗？')) return;
-    momentsData = momentsData.filter(m => m.id !== id);
-    saveMomentsData();
-    renderMomentsFeed();
-    showNotification('已删除', 'success');
-}
-
-function partnerRandomPostMoment() {
-    const text = MOMENTS_PARTNER_TEXTS[Math.floor(Math.random() * MOMENTS_PARTNER_TEXTS.length)];
-    const allStickers = [...(stickerLibrary || []), ...(myStickerLibrary || [])];
-    const useSticker = allStickers.length > 0 && Math.random() < 0.4;
-    const moment = {
-        id: Date.now(),
-        author: 'partner',
-        text: text,
-        image: null,
-        sticker: useSticker ? allStickers[Math.floor(Math.random() * allStickers.length)] : null,
-        timestamp: new Date().toISOString(),
-        likes: [],
-        comments: []
-    };
-    momentsData.unshift(moment);
-    saveMomentsData();
-    if (document.getElementById('moments-page').classList.contains('active')) {
-        renderMomentsFeed();
-    }
-}
-
-function getNextMomentDelay() {
-    const min = (settings && settings.momentIntervalMin) ? settings.momentIntervalMin : 1;
-    const max = (settings && settings.momentIntervalMax) ? settings.momentIntervalMax : 24;
-    const lo = Math.min(min, max);
-    const hi = Math.max(min, max);
-    return (lo + Math.random() * (hi - lo)) * 3600000;
-}
-let nextPartnerMomentAt = Date.now() + getNextMomentDelay();
-setInterval(() => {
-    if (typeof settings === 'undefined' || !settings || settings.momentIntervalEnabled === false) return;
-    if (Date.now() >= nextPartnerMomentAt) {
-        partnerRandomPostMoment();
-        nextPartnerMomentAt = Date.now() + getNextMomentDelay();
-    }
-}, 60000);
 
 /* ===== 快捷背景按钮 ===== */
 function initQuickBgBtn() {
@@ -16455,18 +15578,6 @@ document.getElementById('chat-settings').addEventListener('click', () => {
     document.querySelectorAll('.time-fmt-opt').forEach(opt => {
         opt.classList.toggle('active', opt.dataset.fmt === (settings.timeFormat || 'HH:mm'));
     });
-    const miMinEl = document.getElementById('moment-interval-min');
-    if (miMinEl) miMinEl.value = settings.momentIntervalMin || 1;
-    const miMaxEl = document.getElementById('moment-interval-max');
-    if (miMaxEl) miMaxEl.value = settings.momentIntervalMax || 24;
-    const miToggleEl = document.getElementById('moment-interval-toggle');
-    if (miToggleEl) miToggleEl.classList.toggle('active', settings.momentIntervalEnabled !== false);
-    const mcMinEl = document.getElementById('moment-comment-min');
-    if (mcMinEl) mcMinEl.value = settings.momentCommentMin || 5;
-    const mcMaxEl = document.getElementById('moment-comment-max');
-    if (mcMaxEl) mcMaxEl.value = settings.momentCommentMax || 60;
-    const mcToggleEl = document.getElementById('moment-comment-toggle');
-    if (mcToggleEl) mcToggleEl.classList.toggle('active', settings.momentCommentEnabled !== false);
     const autoToggle = document.getElementById('auto-send-toggle');
     if (autoToggle) autoToggle.classList.toggle('active', !!settings.autoSendEnabled);
     updateAutoSendUI();
@@ -16909,64 +16020,6 @@ document.getElementById('chat-settings').addEventListener('click', () => {
                     showNotification('时间格式已更新', 'success');
                 });
             });
-            const miMinEl2 = document.getElementById('moment-interval-min');
-            const miMaxEl2 = document.getElementById('moment-interval-max');
-            if (miMinEl2) {
-                miMinEl2.value = settings.momentIntervalMin || 1;
-                miMinEl2.addEventListener('change', () => {
-                    let v = parseInt(miMinEl2.value, 10);
-                    if (isNaN(v) || v < 1) v = 1;
-                    if (v > 24) v = 24;
-                    settings.momentIntervalMin = v;
-                    throttledSaveData();
-                    showNotification('发朋友圈时间区间已更新', 'success');
-                });
-            }
-            if (miMaxEl2) {
-                miMaxEl2.value = settings.momentIntervalMax || 24;
-                miMaxEl2.addEventListener('change', () => {
-                    let v = parseInt(miMaxEl2.value, 10);
-                    if (isNaN(v) || v < 1) v = 24;
-                    if (v > 24) v = 24;
-                    settings.momentIntervalMax = v;
-                    throttledSaveData();
-                    showNotification('发朋友圈时间区间已更新', 'success');
-                });
-            }
-            const miToggleEl2 = document.getElementById('moment-interval-toggle');
-            if (miToggleEl2) {
-                miToggleEl2.classList.toggle('active', settings.momentIntervalEnabled !== false);
-                miToggleEl2.addEventListener('click', toggleMomentInterval);
-            }
-            const mcMinEl2 = document.getElementById('moment-comment-min');
-            const mcMaxEl2 = document.getElementById('moment-comment-max');
-            if (mcMinEl2) {
-                mcMinEl2.value = settings.momentCommentMin || 5;
-                mcMinEl2.addEventListener('change', () => {
-                    let v = parseInt(mcMinEl2.value, 10);
-                    if (isNaN(v) || v < 1) v = 1;
-                    if (v > 600) v = 600;
-                    settings.momentCommentMin = v;
-                    throttledSaveData();
-                    showNotification('评论时间区间已更新', 'success');
-                });
-            }
-            if (mcMaxEl2) {
-                mcMaxEl2.value = settings.momentCommentMax || 60;
-                mcMaxEl2.addEventListener('change', () => {
-                    let v = parseInt(mcMaxEl2.value, 10);
-                    if (isNaN(v) || v < 1) v = 1;
-                    if (v > 600) v = 600;
-                    settings.momentCommentMax = v;
-                    throttledSaveData();
-                    showNotification('评论时间区间已更新', 'success');
-                });
-            }
-            const mcToggleEl2 = document.getElementById('moment-comment-toggle');
-            if (mcToggleEl2) {
-                mcToggleEl2.classList.toggle('active', settings.momentCommentEnabled !== false);
-                mcToggleEl2.addEventListener('click', toggleMomentComment);
-            }
 
 
             document.getElementById('appearance-settings').addEventListener('click', () => {
@@ -18577,48 +17630,6 @@ function openGroupSetModal(item) {
     replyGroups.forEach(g => mkOpt(g.name, g.color, g.id));
     const cancel = document.getElementById('group-move-cancel');
     if (cancel) cancel.onclick = () => hideModal(modal);
-    showModal(modal);
-}
-function toggleMomentInterval() {
-    settings.momentIntervalEnabled = settings.momentIntervalEnabled === false;
-    document.querySelectorAll('#moment-interval-toggle, #moment-time-toggle').forEach(el => {
-        if (el) el.classList.toggle('active', settings.momentIntervalEnabled !== false);
-    });
-    throttledSaveData();
-    showNotification(settings.momentIntervalEnabled ? '已开启自动发朋友圈' : '已关闭自动发朋友圈', 'success');
-}
-function openMomentTimeModal() {
-    const modal = document.getElementById('moment-time-modal');
-    if (!modal) return;
-    const minEl = document.getElementById('moment-time-min');
-    if (minEl) minEl.value = settings.momentIntervalMin || 1;
-    const maxEl = document.getElementById('moment-time-max');
-    if (maxEl) maxEl.value = settings.momentIntervalMax || 24;
-    const toggleEl = document.getElementById('moment-time-toggle');
-    if (toggleEl) toggleEl.classList.toggle('active', settings.momentIntervalEnabled !== false);
-    if (minEl) {
-        minEl.onchange = () => {
-            let v = parseInt(minEl.value, 10);
-            if (isNaN(v) || v < 1) v = 1;
-            if (v > 24) v = 24;
-            settings.momentIntervalMin = v;
-            throttledSaveData();
-            showNotification('发朋友圈时间区间已更新', 'success');
-        };
-    }
-    if (maxEl) {
-        maxEl.onchange = () => {
-            let v = parseInt(maxEl.value, 10);
-            if (isNaN(v) || v < 1) v = 24;
-            if (v > 24) v = 24;
-            settings.momentIntervalMax = v;
-            throttledSaveData();
-            showNotification('发朋友圈时间区间已更新', 'success');
-        };
-    }
-    if (toggleEl) toggleEl.onclick = toggleMomentInterval;
-    const okBtn = document.getElementById('moment-time-ok');
-    if (okBtn) okBtn.onclick = () => hideModal(modal);
     showModal(modal);
 }
 function deleteSelectedReplies() {
@@ -22487,35 +21498,6 @@ window.addEventListener('load', function() {
 
 <div id="dg-editor-modal" style="display:none;"></div>
 
-<!-- 朋友圈页面 -->
-<div class="moments-page" id="moments-page">
-    <div class="moments-header">
-        <button class="moments-header-back" id="moments-back-btn"><i class="fas fa-arrow-left"></i></button>
-        <span class="moments-header-title">朋友圈</span>
-        <label class="moments-header-camera" id="moments-camera-btn" for="moments-banner-input" style="cursor:pointer;" title="更换朋友圈封面"><i class="fas fa-camera"></i></label>
-        <button class="moments-header-camera" id="moments-time-btn" onclick="openMomentTimeModal()" title="朋友圈时间设置"><i class="fas fa-clock"></i></button>
-    </div>
-    <div class="moments-banner" id="moments-banner">
-        <div class="moments-banner-placeholder"><i class="fas fa-image"></i></div>
-    </div>
-    <div class="moments-feed" id="moments-feed"></div>
-    <div class="moments-post-preview" id="moments-post-preview">
-        <img class="moments-post-preview-img" id="moments-post-preview-img" src="">
-        <button class="moments-post-preview-remove" id="moments-post-preview-remove"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="moments-sticker-picker" id="moments-sticker-picker">
-        <div class="moments-sticker-picker-title">从字卡库选择</div>
-        <div class="moments-sticker-grid" id="moments-sticker-grid"></div>
-    </div>
-    <div class="moments-post-bar">
-        <button class="moments-post-img-btn" id="moments-post-img-btn"><i class="fas fa-image"></i></button>
-        <button class="moments-post-img-btn" id="moments-post-sticker-btn"><i class="fas fa-grin-stars"></i></button>
-        <textarea class="moments-post-text" id="moments-post-text" placeholder="这一刻的想法..." rows="1"></textarea>
-        <button class="moments-post-send-btn" id="moments-post-send">发表</button>
-    </div>
-    <input type="file" id="moments-img-input" accept="image/*" style="display:none;">
-    <input type="file" id="moments-banner-input" accept="image/*" style="display:none;">
-</div>
 
 <!-- 快捷背景按钮 -->
 <button class="quick-bg-btn" id="quick-bg-btn" title="更换背景图"><i class="fas fa-image"></i></button>
